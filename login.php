@@ -2,7 +2,7 @@
 <html>
  <h1> Login Page </h1>
  <br><br>
- <form>
+ <form action = "main_page.php" target = "_self">
     <label for = "uname"> Username: </label>
     <br>
     <input type = "text" id = "uname" name = "uname">
