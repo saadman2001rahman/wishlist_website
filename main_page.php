@@ -14,6 +14,7 @@
     <div className="nav_bar">
         <h1>Wishlists added</h1>
         <button className="button_add_wishlist">Add items</button>
+        <button className="button_item_category">Add Category</button>
         <button className="button_show_basket"><img src="images/basket_image.png" width="50" </button>
     </div>
 
