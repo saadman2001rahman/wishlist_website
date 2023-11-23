@@ -12,7 +12,10 @@
         <input type="text" id="price" name="price"><br>
 
         <label for="category">Item Category:</label><br>
-        <input type="text" id="category" name="category">
+        <input type="text" id="category" name="category"><br>
+
+        <label for="website">Website:</label><br>
+        <input type="text"><br>
 
         <br>
         <input type="submit" value="Submit" >
