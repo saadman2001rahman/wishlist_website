@@ -13,11 +13,14 @@
 <body>
     <div className="nav_bar">
         <h1>Wishlists added</h1>
-        <button title="Add Wishlist" className="button_add_wishlist"><img src="images/add_wishlist.png" width="35"
-                </button>
-            <button className="button_item_category">Add Category</button>
-            <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
+        <a href="add_wishlist.php">
+            <button title="Add Wishlist" className="button_add_wishlist"><img src="images/add_wishlist.png" width="35"
                     </button>
+
+        </a>
+        <button className="button_item_category">Add Category</button>
+        <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
+                </button>
     </div>
 
     <!-- each wishlist entry -->
@@ -32,6 +35,10 @@
         ";
     }
     ?>
+
+    <a href="login.php">
+        <button>logout</button>
+    </a>
 
 
 </body>
