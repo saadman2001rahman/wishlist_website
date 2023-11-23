@@ -10,7 +10,10 @@
     <label for = "pass"> Password: </label>
     <br>
     <input type = "password" id = "pass" name = "pass">
-    <input type="checkbox" onclick="myFunction()">Show Password
+    <input type = "checkbox" id = "reveal">
+    <label for = "reveal">
+        <img src="images/Eye-Black.png" height = 15px width = 20px onclick= "myFunction()"/>
+    </label>
     <br><br>
     <input type = "submit" value = "Submit">
  </form>
