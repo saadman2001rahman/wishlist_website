@@ -18,9 +18,13 @@
                     </button>
 
         </a>
-        <button className="button_item_category">Add Category</button>
-        <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
-                </button>
+        <a href="itemcategory.php">
+            <button className="button_item_category">Add Category</button>
+        </a>
+        <a href="view_basket.php">
+            <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
+                    </button>
+        </a>
     </div>
 
     <!-- each wishlist entry -->
@@ -30,7 +34,9 @@
         <div className=\"wishlist_entries\">
             <p>name of wishlist</p>
             <button className=\"button_edit_wishlist\">Edit</button>
-            <button title=\"Add Item\" className=\"button_add_item\"><img src=\"images/add_item.png\" width=\"20\"</button>
+            <a href=\"additem.php\">
+                <button title=\"Add Item\" className=\"button_add_item\"><img src=\"images/add_item.png\" width=\"20\"</button>
+                </a>
         </div>
         ";
     }
