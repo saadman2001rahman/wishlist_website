@@ -132,9 +132,9 @@ CREATE TABLE `master_user` (
   `User_id` varchar(20) NOT NULL,
   `Email_address` varchar(20) DEFAULT NULL,
   `Display_name` varchar(20) NOT NULL,
-  `Address` varchar(30) DEFAULT NULL,
+  `User_address` varchar(30) DEFAULT NULL,
   `Phone_number` char(10) DEFAULT NULL,
-  `Password` varchar(15) NOT NULL
+  `User_password` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
