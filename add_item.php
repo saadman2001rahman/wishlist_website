@@ -1,3 +1,10 @@
+<?php
+
+if(isset($_POST["submit"])) {
+
+}
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,7 +15,7 @@
         <button><img src="images/back.png" width="10" length="10"></button>
     </a>
 
-    <form action="main_page.php">
+    <form action="main_page.php" method="post">
         <label for="iname">Item name:</label>
         <input type="text" id="iname" name="iname"><br>
         <br>
