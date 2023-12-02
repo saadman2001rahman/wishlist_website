@@ -1,10 +1,10 @@
 <?php
 
-$wishlist_name = $_POST["name"];
-$wishlist_id = $_POST["id"];
+$wishlist_name = $_POST["wishlist_name"];
+$wishlist_id = $_POST["wishlist_id"];
 $owner_id = $_POST["owner"];
 
-echo $name . "<br>" . $email . "<br>";
+echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
 // Create connection
@@ -15,13 +15,15 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "INSERT INTO wishlist (Wishlist_id, Wishlist_name, Owner_id) VALUES ('$wishlist_id','$wishlist_name','$owner_id')";
+$sql = "INSERT INTO wishlist (Wishlist_id, Wishlist_name, Owner_id) VALUES ('$wishlist_id', '$wishlist_name','$owner_id')";
+
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
 }
 
-echo "1 record added";
 
 mysqli_close($con);
+header("Location: main_page.php");
+exit();
 ?>
