@@ -1,22 +1,17 @@
 <?php
 
-$item_name = $_POST["item name"];
-$due_date = $_POST["due date"];
+$iname = $_POST["item_name"];
+$ddate = $_POST["due_date"];
 $link = $_POST["link"];
 $description = $_POST["description"];
-$item_cat = $_POST["item category"];
-$web_domain = $_POST["website domain"];
+$icat = $_POST["item_category"];
+$domain = $_POST["website_domain"];
 $price = $_POST["price"];
 
-echo $item_name. "<br>". $description."<br>";
+// echo $iname. "<br>". $description."<br>";
 
 // Create connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "wishlist_website";
-
-$con=mysqli_connect($servername,$username,$password,$dbname);
+$con=mysqli_connect("localhost","root","","wishlist_website");
 
 // Check connection
 if(!$con) {
@@ -24,7 +19,7 @@ if(!$con) {
 }
 
 $sql = "INSERT INTO item (Item_number, Name, Due_date, Link, Description, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-    VALUES ('1', '$item_name', '$due_date', '$link', '$description', '$item_cat', '$web_domain', '1', '1', '$price')";
+    VALUES (rand(), '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '1', '1', '$price')";
 
 if(!mysqli_query($con,$sql)) {
     die('Error: '. mysqli_error($con));

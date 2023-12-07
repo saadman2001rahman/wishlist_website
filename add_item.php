@@ -1,17 +1,10 @@
-<?php
-
-if(isset($_POST["submit"])) {
-
-}
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
         <h1>Add Item</h1>
     </head>
 
-    <a href="main_page.php">
+    <a href="sql_add_item.php">
         <button><img src="images/back.png" width="10" length="10"></button>
     </a>
 
@@ -48,5 +41,19 @@ if(isset($_POST["submit"])) {
         <input type="submit" value="Add" >
         <input type="reset" value="Clear" >
     </form>
+
+<?php
+
+    foreach ($_POST as $key => $value) {
+        if(empty($value)) {
+            print ('<br>Warning: Missing value ' . $key .'!');
+        }
+    }
+    if(isset($_POST['item_name']) && !empty($_POST['item_name'])) {
+        $iname = $_POST['item_name'];
+        print("<br>" . $iname);
+    }
+
+?>
 
 </html>
