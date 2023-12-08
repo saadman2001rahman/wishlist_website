@@ -26,28 +26,17 @@
             // Get item categories from database
             // Create connection
             $con=mysqli_connect("localhost","root","","wishlist_website");
-
             // Check connection
             if(!$con) {
                 echo "Failed to connect: ". mysqli_connect_error();
             }
-
             // use to get item categories for form below
             $categories = mysqli_query($con,"SELECT Category_id, Name FROM item_category");
-
             while($row = mysqli_fetch_array($categories)) {
                 //
                 echo '<option value="' . $row['Category_id'] . '">' . $row['Name'] . '</option>';
             }
-
             mysqli_close($con);
-                        
-            // // $item_cat = array($categories);
-            // $item_cat = array("","2020202","10001","other");
-            // // Display categories in dropdown
-            // foreach ($item_cat as $category) {
-            //     echo "<option value=\"$category\">$category</option>";
-            // }
             ?>
         </select><br>
         <br>
