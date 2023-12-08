@@ -2,6 +2,7 @@
 <html>
 
 <?php
+session_start();
 $conn = mysqli_connect("localhost", "saadman", "123456", "wishlist_website");
 
 if (!$conn) {
@@ -49,15 +50,18 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class="container">
         <div class="row">
             <?php foreach ($alwishlists as $wish) { ?>
-            <div>
-                <h6>
-                    <?php
+                <div>
+                    <h6>
+                        <?php
                         echo htmlspecialchars($wish["Wishlist_name"]);
-                        $wishlist_id = $wish["Wishlist_id"];
-                            ?>
-                    <button type="button" formaction="sql_remove_wishlist.php">Remove</button>
-                </h6>
-            </div>
+                        // $wishlist_id = $wish["Wishlist_id"];
+                        $_SESSION['wishlist_id'] = $wish["Wishlist_id"];
+                        ?>
+                        <form action="sql_remove_wishlist.php">
+                            <input type="submit" value="Remove">
+                        </form>
+                    </h6>
+                </div>
             <?php } ?>
         </div>
     </div>
