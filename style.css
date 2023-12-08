@@ -10,6 +10,19 @@ input[type = submit] {
     border-color:cadetblue;
     border-radius: 25px;
 }
+input[type = checkbox] {
+    text-align: right;
+    border-radius: 30px;
+}
+h1 {
+    text-align: center;
+}
+form {
+    text-align: center;
+}
+a {
+    text-align: center;
+}
 button {
     border-color:cadetblue;
     border-radius: 25px;
