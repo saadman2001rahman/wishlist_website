@@ -12,7 +12,7 @@
 <form action="sql_add_wishlist.php" method="post">
     <!-- ID: <input type="text" name="wishlist_id"> -->
     Name: <input type="text" name="wishlist_name">
-    Owner: <input type="text" name="owner">
+    <!-- Owner: <input type="text" name="owner"> -->
     <input type="submit" value="add">
 </form>
 <br>
