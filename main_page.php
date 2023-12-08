@@ -49,11 +49,15 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div class="container">
         <div class="row">
             <?php foreach ($alwishlists as $wish) { ?>
-                <div>
-                    <h6>
-                        <?php echo htmlspecialchars($wish["Wishlist_name"]); ?>
-                    </h6>
-                </div>
+            <div>
+                <h6>
+                    <?php
+                        echo htmlspecialchars($wish["Wishlist_name"]);
+                        $wishlist_id = $wish["Wishlist_id"];
+                            ?>
+                    <button type="button" formaction="sql_remove_wishlist.php">Remove</button>
+                </h6>
+            </div>
             <?php } ?>
         </div>
     </div>
