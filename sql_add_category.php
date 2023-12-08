@@ -6,6 +6,7 @@ $category_id = $_POST["id"];
 
 // Create connection
 $con = mysqli_connect("localhost", "saadman", "123456", "wishlist_website");
+// $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
 if (!$con) {
@@ -13,6 +14,7 @@ if (!$con) {
 }
 
 $sql = "INSERT INTO item_category (Category_id , Category_name) VALUES ('$category_id', '$category_name')";
+// $sql = "INSERT INTO item_category (Category_id , Name) VALUES ($category_id, '$category_name')";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
