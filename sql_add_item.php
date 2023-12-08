@@ -8,7 +8,7 @@ $icat = $_POST["item_category"];
 $domain = $_POST["website_domain"];
 $price = $_POST["price"];
 
-// echo $iname. "<br>". $description."<br>";
+// echo $iname; ??
 
 // Create connection
 $con=mysqli_connect("localhost","root","","wishlist_website");
@@ -19,7 +19,7 @@ if(!$con) {
 }
 
 $sql = "INSERT INTO item (Item_number, Name, Due_date, Link, Description, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-    VALUES (rand(), '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '1', '1', '$price')";
+    VALUES (rand(), '$iname', '$ddate', '$link', '$description', '$icat', '$domain', rand(), rand(), '$price')";
 
 if(!mysqli_query($con,$sql)) {
     die('Error: '. mysqli_error($con));
@@ -29,4 +29,6 @@ if(!mysqli_query($con,$sql)) {
 
 // Close connection
 mysqli_close($con);
+
+header("Location: add_item.php");
 ?>

@@ -9,6 +9,7 @@ echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 // Create connection
 $con = mysqli_connect("localhost", "saadman", "123456", "wishlist_website");
+// $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
 if (!$con) {
