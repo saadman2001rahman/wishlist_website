@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
 <html>
  <head>
+ <link rel="stylesheet" href="style.css">
  <h1> Register a new account </h1>
  </head>
 
