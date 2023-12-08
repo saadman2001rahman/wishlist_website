@@ -24,6 +24,7 @@ if (!$con)
   while($canInsert == 0) {
     $rand = rand(0,9999999);
     $result = mysqli_query($con," SELECT User_id FROM master_user WHERE User_id = '$rand'");
+    
     if($result !== false) {
       if(mysqli_num_rows($result) == 0) {
         $canInsert = 1;
@@ -40,10 +41,17 @@ if (!$con)
         $form_filled = false;
     }
   } */
+    $user = mysqli_query($con," SELECT Display_name FROM master_user WHERE Display_name = '$dname'");
 
  // if($form_filled) {
-    $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
-                VALUES ($rand,'$email','$dname','$address','$phone','$pass')";
+    if($user !== false && mysqli_num_rows($user) == 0) {
+        $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
+                    VALUES ($rand,'$email','$dname','$address','$phone','$pass')";
+        header("Location: login.php");
+    } else {
+      mysqli_close($con);
+      die('Error: Use a different username, this one is already in use!');
+    }
     
     
     if (!mysqli_query($con,$sql))
@@ -51,13 +59,7 @@ if (!$con)
     die('Error: ' . mysqli_error($con));
     }
  //  }
-  
-echo "1 record added";
 
 mysqli_close($con);
-?>
-
-
-
 
 ?>
