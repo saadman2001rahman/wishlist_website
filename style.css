@@ -1,0 +1,16 @@
+input[type = text] {
+    border-color:cadetblue;
+    border-radius: 25px;
+}
+input[type = password] {
+    border-color:cadetblue;
+    border-radius: 25px;
+}
+input[type = submit] {
+    border-color:cadetblue;
+    border-radius: 25px;
+}
+button {
+    border-color:cadetblue;
+    border-radius: 25px;
+}
