@@ -3,7 +3,7 @@
 
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "saadman", "123456", "wishlist_website");
+$conn = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$conn) {
     echo "Connection error: " . mysqli_connect_error();
@@ -33,13 +33,18 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <div className="nav_bar">
         <h1>Wishlists added</h1>
         <a href="add_wishlist.php">
-            <button title="Add Wishlist" className="button_add_wishlist"><img src="images/add_wishlist.png" width="35"
-                    </button>
+            <button title="Add Wishlist" className="button_add_wishlist"><img src="images/add_wishlist.png"
+                    width="35" />
+            </button>
 
         </a>
-        <a href="add_item_category.php">
-            <button className="button_item_category">Add Category</button>
-        </a>
+        <form action="view_category.php" method="post">
+            <input type="submit" name="submit" value="View Item Categories">
+        </form>
+        <form action="view_websites.php" method="post">
+            <input type="submit" name="submit" value="View Websites">
+        </form>
+
         <a href="view_basket.php">
             <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
                     </button>

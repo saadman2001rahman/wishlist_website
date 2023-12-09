@@ -10,7 +10,7 @@
 </a><br>
 
 <form action="sql_add_category.php" method="post">
-    ID: <input type="text" name="id">
+    <!-- ID: <input type="text" name="id"> -->
     Name: <input type="text" name="name">
     <input type="submit" value="add">
 </form>

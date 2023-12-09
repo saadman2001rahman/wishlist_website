@@ -3,12 +3,11 @@
 $wishlist_name = $_POST["wishlist_name"];
 // $wishlist_id = $_POST["wishlist_id"];
 $owner_id = 'first_user';
-$caninsert = 0;
 echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
 // Create connection
-$con = mysqli_connect("localhost", "saadman", "123456", "wishlist_website");
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 // $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
@@ -16,6 +15,7 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
+$caninsert = 0;
 $tryid = rand(0, 9999999);
 while ($caninsert == 0) {
     // $tryid = rand(0, 99999999);
