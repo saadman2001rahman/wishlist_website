@@ -20,7 +20,11 @@
     <input type = "text" id = "phone" name = "phone_number">
     <br>
     <h2> Login Info </h2>
-    <label for = "display_name"> Username: </label>
+    <label for = "username"> Username: </label>
+    <br>
+    <input type = "text" id = "user_name" name = "username">
+    <br>
+    <label for = "display_name"> Display name: </label>
     <br>
     <input type = "text" id = "display_name" name = "display_name">
     <br>
