@@ -7,7 +7,7 @@ $ddate = $_POST["due_date"];
 $description = $_POST["description"];
 $link = $_POST["link"];
 
-$itemid = rand(0,99999);
+$itemid = rand(0, 99999);
 $caninsert = 0;
 
 // $wishid = $_POST["wishlist_id"];
@@ -42,7 +42,7 @@ if ($domain) {
 }
 
 while ($caninsert == 0) {
-    $result = mysqli_query($con,"SELECT Item_number FROM item WHERE Item_number = '$itemid'");
+    $result = mysqli_query($con, "SELECT Item_number FROM item WHERE Item_number = '$itemid'");
     if ($result !== false) {
         if (mysqli_num_rows($result) == 0) {
             $caninsert = 1;
@@ -59,8 +59,8 @@ while ($caninsert == 0) {
 $sql = "INSERT INTO item (Item_number, Name, Due_date, Link, Description, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
         VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', $domain, '10001', NULL, '$price')";
 
-if(!mysqli_query($con,$sql)) {
-    die('Error: '. mysqli_error($con));
+if (!mysqli_query($con, $sql)) {
+    die('Error: ' . mysqli_error($con));
 } else {
     echo "1 record added";
 }
