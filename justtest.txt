@@ -1,0 +1,18 @@
+    <!-- <div class="container">
+        <div class="row">
+            <?php foreach ($alwishlists as $wish) { ?>
+                <div>
+                    <h6>
+                        <?php
+                        echo htmlspecialchars($wish["Wishlist_name"]);
+                        // $wishlist_id = $wish["Wishlist_id"];
+                        $_SESSION['wishlist_id'] = $wish["Wishlist_id"];
+                        ?>
+                        <form action="sql_remove_wishlist.php">
+                            <input type="submit" value="Remove">
+                        </form>
+                    </h6>
+                </div>
+            <?php } ?>
+        </div>
+    </div> -->
