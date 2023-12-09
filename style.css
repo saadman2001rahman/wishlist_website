@@ -1,13 +1,13 @@
 input[type = text] {
-    border-color:cadetblue;
+    border-color:plum;
     border-radius: 25px;
 }
 input[type = password] {
-    border-color:cadetblue;
+    border-color:plum;
     border-radius: 25px;
 }
 input[type = submit] {
-    border-color:cadetblue;
+    border-color:plum;
     border-radius: 25px;
 }
 input[type = checkbox] {
@@ -20,10 +20,13 @@ h1 {
 form {
     text-align: center;
 }
+body {
+    background-image: url("images/background_image.png");
+}
 a {
     text-align: center;
 }
 button {
-    border-color:cadetblue;
+    border-color: plum;
     border-radius: 25px;
 }
