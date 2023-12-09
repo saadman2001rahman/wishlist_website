@@ -10,11 +10,36 @@ $link = $_POST["link"];
 $itemid = rand(0,99999);
 $caninsert = 0;
 
-// $domain = $_POST["website_domain"];
 // $wishid = $_POST["wishlist_id"];
 // $baskid = $_POST["basket_id"];
 
-// echo $iname; ??
+// Create connection
+$con=mysqli_connect("localhost","root","","wishlist_website");
+
+// Check connection
+if(!$con) {
+    echo "Failed to connect: ". mysqli_connect_error();
+}
+
+function getDomainFromUrl($url) {
+    $parsed_url = parse_url($url);
+
+    // Check if the "host" key exists in the parsed URL array
+    if (isset($parsed_url['host'])) {
+        return $parsed_url['host'];
+    }
+
+    // If "host" is not present, the URL might be malformed or incomplete
+    return false;
+}
+
+$domain = getDomainFromUrl($link);
+
+if ($domain) {
+    echo "Domain: " . $domain;
+} else {
+    echo "Invalid or incomplete URL.";
+}
 
 while ($caninsert == 0) {
     $result = mysqli_query($con,"SELECT Item_number FROM item WHERE Item_number = '$itemid'");
@@ -30,17 +55,9 @@ while ($caninsert == 0) {
     }
 }
 
-// Create connection
-$con=mysqli_connect("localhost","root","","wishlist_website");
-
-// Check connection
-if(!$con) {
-    echo "Failed to connect: ". mysqli_connect_error();
-}
-
 // May need to change item category; website domain; wishlist id; basket id
 $sql = "INSERT INTO item (Item_number, Name, Due_date, Link, Description, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', NULL, '10001', NULL, '$price')";
+        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', $domain, '10001', NULL, '$price')";
 
 if(!mysqli_query($con,$sql)) {
     die('Error: '. mysqli_error($con));
