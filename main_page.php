@@ -3,9 +3,9 @@
 
 <?php
 session_start();
-$conn = mysqli_connect("localhost", "root", "", "wishlist_website");
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
-if (!$conn) {
+if (!$con) {
     echo "Connection error: " . mysqli_connect_error();
 }
 
@@ -13,7 +13,7 @@ if (!$conn) {
 $sql = "SELECT * FROM WISHLIST";
 
 //make query and get result
-$result = mysqli_query($conn, $sql);
+$result = mysqli_query($con, $sql);
 
 //fetch as array
 $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -52,24 +52,26 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     </div>
 
 
-    <div class="container">
-        <div class="row">
-            <?php foreach ($alwishlists as $wish) { ?>
-                <div>
-                    <h6>
-                        <?php
-                        echo htmlspecialchars($wish["Wishlist_name"]);
-                        // $wishlist_id = $wish["Wishlist_id"];
-                        $_SESSION['wishlist_id'] = $wish["Wishlist_id"];
-                        ?>
-                        <form action="sql_remove_wishlist.php">
-                            <input type="submit" value="Remove">
-                        </form>
-                    </h6>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
+    <?php
+    echo "<html><body>";
+    if ($result->num_rows > 0) {
+        echo "<table border='1'><tr><th>Name</th></tr>";
+        foreach ($alwishlists as $row) {
+            $_SESSION['wishlist_id'] = $row["Wishlist_id"];
+            echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php'><input type='submit' value='Remove'></form>";
+            "</td><td>" . "<form action='edit_wishlist.php'><input type='submit' value='Edit'></form>";
+            "</td></tr>";
+
+
+        }
+        echo "</table>";
+    }
+    echo "</body></html>";
+
+
+    mysqli_close($con);
+
+    ?>
 
     <a href="login.php">
         <button>logout</button>
