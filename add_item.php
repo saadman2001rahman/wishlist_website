@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="style.css">
         <h1>Add Item</h1>
     </head>
 
@@ -9,28 +10,34 @@
     </a>
 
     <form action="sql_add_item.php" method="post">
-        <label for="iname">Item name:</label>
-        <input type="text" id="iname" name="iname"><br>
+        <label for="item_name">Item name:</label>
+        <input type="text" id="item_name" name="item_name"><br>
         <br>
         <label for="price">Price:</label>
         <input type="number" id="price" name="price" step="0.01" min="0.00"><br>
         <br>
-        <label for="icat">Item category:</label>
-        <select name="icat" id="icat">
+        <label for="item_category">Item category:</label>
+        <select name="item_category" id="item_category">
             <?php
-            //https://www.w3schools.com/howto/howto_js_cascading_dropdown.as
-            //TODO: Connect categories from main_page categories
-            // Item categories
-            $item_cat = array("","category1","category2","category3");
-            // Display categories in dropdown
-            foreach ($item_cat as $category) {
-                echo "<option value=\"$category\">$category</option>";
+            // Get item categories from database
+            // Create connection
+            $con=mysqli_connect("localhost","root","","wishlist_website");
+            // Check connection
+            if(!$con) {
+                echo "Failed to connect: ". mysqli_connect_error();
             }
+            // use to get item categories for form below
+            $categories = mysqli_query($con,"SELECT Category_id, Name FROM item_category");
+            while($row = mysqli_fetch_array($categories)) {
+                //
+                echo '<option value="' . $row['Category_id'] . '">' . $row['Name'] . '</option>';
+            }
+            mysqli_close($con);
             ?>
         </select><br>
         <br>
-        <label for="ddate">Item due date: </label>
-        <input type="date" id="ddate" name="ddate" max="2025-12-31"><br>
+        <label for="due_date">Item due date: </label>
+        <input type="date" id="due_date" name="due_date" max="2025-12-31"><br>
         <br>
         <label for="description">Description:</label>
         <input type="text" id="description" name="description"><br>
@@ -41,6 +48,7 @@
         <input type="submit" value="Add" >
         <input type="reset" value="Clear" >
     </form>
+</html>
 
 <?php
 
@@ -55,5 +63,3 @@
     }
 
 ?>
-
-</html>
