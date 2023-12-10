@@ -24,7 +24,12 @@ echo "    <a href='add_item_category.php'>
 </a>
 ";
 
-echo "<html><head><title>SQL Query Result</title></head><body>";
+echo "<html><head><head>
+<link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+<title>SQL Query Result</title></head><body>";
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th></tr>";
     foreach ($all_categories as $row) {

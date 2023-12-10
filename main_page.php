@@ -26,7 +26,7 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     <title>Main Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -58,8 +58,8 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
         echo "<table border='1'><tr><th>Name</th></tr>";
         foreach ($alwishlists as $row) {
             $_SESSION['wishlist_id'] = $row["Wishlist_id"];
-            echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php'><input type='submit' value='Remove'></form>";
-            "</td><td>" . "<form action='edit_wishlist.php'><input type='submit' value='Edit'></form>";
+            echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php'><input type='submit' value='Remove'></form>" .
+                "</td><td>" . "<form action='see_items.php'><input type='submit' value='Edit'></form>";
             "</td></tr>";
 
 
