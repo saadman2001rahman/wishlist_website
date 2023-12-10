@@ -24,7 +24,8 @@ echo "    <a href='add_website.php'>
 </a>
 ";
 
-echo "<html><head><title>SQL Query Result</title></head><body>";
+echo "<html><head><link rel='stylesheet' href='style.css'>
+<title>SQL Query Result</title></head><body>";
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th></tr>";
     foreach ($all_categories as $row) {
