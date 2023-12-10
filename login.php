@@ -14,21 +14,24 @@ session_start();
 </head>
 <br><br>
 
-<form action="main_page.php" method = "POST">
-  <label for="dname"> Username: </label>
-  <br>
-  <input type="text" id="dname" name="dname">
-  <br>
-  <label for="pass"> Password: </label>
-  <br>
-  <input type="password" id="pass" name="pass">
-  <input type="checkbox" id="reveal" onclick="revealPass()">
-  <label for="reveal">
-    <img src="images/Eye-Black.png" height=15px width=20px onclick="revealPass()" />
-  </label>
-  <br><br>
-  <input type="submit" value="Submit">
-</form>
+<div class = "form-container">
+  <form action="main_page.php" method = "POST">
+    <label for="dname"> Username: </label>
+    <br>
+    <input type="text" id="dname" name="dname">
+    <br>
+    <label for="pass"> Password: </label>
+    <br>
+    <input type="password" id="pass" name="pass">
+    <label for="reveal">
+      <br>
+      <input type="checkbox" id="reveal" onclick="revealPass()">
+      <img src="images/Eye-Black.png" height=15px width=20px onclick="revealPass()" />
+    </label>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 
 <br>
 <a href="signup.php"> If you don't already have an account, sign up here </a>
