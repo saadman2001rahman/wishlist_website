@@ -14,7 +14,7 @@ session_start();
 </head>
 <br><br>
 
-<form action="main_page.php" method = "POST">
+<form action="main_page.php" method="POST">
   <label for="dname"> Username: </label>
   <br>
   <input type="text" id="dname" name="dname">
