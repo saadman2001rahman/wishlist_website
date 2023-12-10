@@ -1,7 +1,7 @@
 <?php
 session_start();
 $wishlist_id = $_SESSION['wishlist_id'];
-$con = mysqli_connect("localhost", "root", "", "wishlist_website");
+$con = mysqli_connect("localho st", "root", "", "wishlist_website");
 
 if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
@@ -62,8 +62,6 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th><th>Price</th><th>Due Date</th></tr>";
     foreach ($all_categories as $row) {
-        // $_SESSION['website_domain'] = $row["Website_domain"];
-        // echo $row["wishlist_name"];
         echo "<tr><td>" . $row["item_name"] . "</td><td>" . $row["price"] . "</td><td>" . $row["due_date"] . "</td></tr>";
 
     }
