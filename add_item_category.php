@@ -3,6 +3,7 @@
 
 <head>
     <h1>Add Item Category</h1>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <a href="main_page.php">

@@ -11,17 +11,17 @@ input[type = submit] {
     border-radius: 25px;
 }
 input[type = checkbox] {
-    text-align: right;
     border-radius: 30px;
 }
 h1 {
     text-align: center;
 }
-form {
-    text-align: center;
+.form-container {
+    align-items: center;
 }
 body {
     background-image: url("images/background_image.png");
+    text-align: center;
 }
 a {
     text-align: center;
