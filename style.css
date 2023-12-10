@@ -17,11 +17,9 @@ input[type = checkbox] {
 h1 {
     text-align: center;
 }
-form {
-    text-align: center;
-}
 body {
     background-image: url("images/background_image.png");
+    text-align: center;
 }
 a {
     text-align: center;
