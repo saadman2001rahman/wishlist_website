@@ -19,46 +19,12 @@ if (!$con) {
 
 $form_filled = true;
 
-// Ensures random number for user_id isn't in use in sql database already 
-$rand = rand(0, 9999999);
-while ($canInsert == 0) {
-  $rand = rand(0, 9999999);
-  $result = mysqli_query($con, " SELECT User_id FROM master_user WHERE User_id = '$rand'");
-
-  if ($result !== false) {
-    if (mysqli_num_rows($result) == 0) {
-      $canInsert = 1;
-    } else {
-      $rand = rand(0, 9999999);
+  //Checks if any values in form is empty
+  foreach ($_POST as $key => $value) {
+    if(empty($value)) {
+        $form_filled = false;
     }
-  } else {
-    echo 'Error in query: ' . mysqli_error($con);
-    die();
   }
-}
-/*foreach ( $_POST as $key) {
-  if(!$isset($key)) {
-      $form_filled = false;
-  }
-} */
-$user = mysqli_query($con, " SELECT Display_name FROM master_user WHERE Display_name = '$dname'");
-
-// if($form_filled) {
-if ($user !== false && mysqli_num_rows($user) == 0) {
-  $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
-                    VALUES ($rand,'$email','$dname','$address','$phone','$pass')";
-  header("Location: login.php");
-} else {
-  mysqli_close($con);
-  die('Error: Use a different username, this one is already in use!');
-}
-
-
-if (!mysqli_query($con, $sql)) {
-  die('Error: ' . mysqli_error($con));
-}
-//  }
-$form_filled = true;
 
 //Checks if any values in form is empty
 foreach ($_POST as $key => $value) {
@@ -75,9 +41,9 @@ if (!$form_filled) {
 
 $user = mysqli_query($con, " SELECT User_id FROM master_user WHERE User_id = '$uname'");
 
-//Checks to see if username is unique, and inserts into databse if true and closes sql connection if not
-if (mysqli_num_rows($user) === 0) {
-  $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
+  //Checks to see if username is unique, and inserts into databse if true and closes sql connection if not
+  if(mysqli_num_rows($user) == 0) {
+    $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
               VALUES ('$uname','$email','$dname','$address','$phone','$pass')";
   header("Location: login.php");
 } else {

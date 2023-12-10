@@ -1,8 +1,12 @@
 <!DOCTYPE html> 
 <html>
  <head>
- <link rel="stylesheet" href="style.css">
- <h1> Register a new account </h1>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Register a new account </title>
+    <h1> Register a new account </h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
  </head>
 
  <form action = "sql_add_user.php" method = "POST">
