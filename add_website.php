@@ -15,8 +15,10 @@
     </div>
     <br><br>
     <form action="sql_add_website.php" method="post">
-        Domain: <input type="text" name="website_domain">
-        Shipping: <input type="text" name="cost">
+        <label for="domain">Domain:</label>
+        <input type="text" id="domain" name="domain"><br>
+        <label for="cost">Shipping:</label>
+        <input type="number" id="cost" name="cost" step="0.01" min="0.00"><br>
         <input type="submit" value="add">
     </form>
     <br>
