@@ -2,7 +2,7 @@
 <html>
 
 <?php
-session_start();
+// $owner_id = $_POST["dname"];
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$con) {
@@ -57,10 +57,10 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if ($result->num_rows > 0) {
         echo "<table border='1'><tr><th>Name</th></tr>";
         foreach ($alwishlists as $row) {
-            $_SESSION['wishlist_id'] = $row["Wishlist_id"];
-            echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php'><input type='submit' value='Remove'></form>" .
-                "</td><td>" . "<form action='see_items.php'><input type='submit' value='Edit'></form>";
+            echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php' method='POST'>           <input type='hidden' name='wishlist_id' value=" . $row['Wishlist_id'] . ">" . "<input type='submit' value='Remove'></form>" .
+                "</td><td>" . "<form action='see_items.php' method='post'><input type='hidden' name='wishlist_id' value=" . $row['Wishlist_id'] . ">" . "<input type='submit' value='Edit'></form>";
             "</td></tr>";
+
 
 
         }

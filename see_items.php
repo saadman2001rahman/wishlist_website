@@ -1,7 +1,7 @@
 <?php
-session_start();
-$wishlist_id = $_SESSION['wishlist_id'];
-$con = mysqli_connect("localho st", "root", "", "wishlist_website");
+// session_start();
+$wishlist_id = $_POST['wishlist_id'];
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
@@ -50,7 +50,7 @@ if ($result->num_rows > 0) {
     echo "0 results";
 }
 
-$sql = "SELECT item_name, price, due_date FROM item WHERE wishlist_id= '$wishlist_id'";
+$sql = "SELECT Item_number, item_name, price, due_date FROM item WHERE wishlist_id= '$wishlist_id'";
 
 $result = mysqli_query($con, $sql);
 if (!$result) {
@@ -62,7 +62,12 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th><th>Price</th><th>Due Date</th></tr>";
     foreach ($all_categories as $row) {
-        echo "<tr><td>" . $row["item_name"] . "</td><td>" . $row["price"] . "</td><td>" . $row["due_date"] . "</td></tr>";
+        // $_SESSION['website_domain'] = $row["Website_domain"];
+        // echo $row["wishlist_name"];
+        echo "<tr><td>" . $row["item_name"] . "</td><td>" . $row["price"] . "</td><td>" . $row["due_date"] . "</td><td>" . "<form action='sql_remove_item.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove'></form>" .
+            "</td><td>" . "<form action='sql_edit_item.php' method='post'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Edit'></form>" .
+            "</td><td>" . "<form action='sql_add_to_basket.php' method='POST'><input type='hidden' name='wishlist_id' value=" . $wishlist_id . ">" . "<input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Add To Basket'></form>" .
+            "</td></tr>";
 
     }
     echo "</table>";

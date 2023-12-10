@@ -1,6 +1,6 @@
 <?php
 // session_start();
-$wishlist_id = $_POST['wishlist_id'];
+$iten_number = $_POST['item_number'];
 // echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
@@ -13,7 +13,7 @@ if (!$con) {
 }
 
 
-$sql = "DELETE FROM	WISHLIST WHERE Wishlist_id='$wishlist_id'";
+$sql = "UPDATE ITEM SET Basket_id=null  WHERE Item_number='$iten_number'";
 
 
 if (!mysqli_query($con, $sql)) {
@@ -22,6 +22,6 @@ if (!mysqli_query($con, $sql)) {
 
 
 mysqli_close($con);
-header("Location: main_page.php");
+header("Location: view_basket.php");
 exit();
 ?>
