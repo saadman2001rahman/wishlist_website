@@ -1,13 +1,20 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Login Page </title>
+  <h1> Wishlist Website </h1>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
-  <h1> Login Page </h1>
 </head>
 <br><br>
 
-<form action="main_page.php" target="_self">
+<form action="main_page.php" method = "POST">
   <label for="dname"> Username: </label>
   <br>
   <input type="text" id="dname" name="dname">
@@ -15,7 +22,7 @@
   <label for="pass"> Password: </label>
   <br>
   <input type="password" id="pass" name="pass">
-  <input type="checkbox" id="reveal">
+  <input type="checkbox" id="reveal" onclick="revealPass()">
   <label for="reveal">
     <img src="images/Eye-Black.png" height=15px width=20px onclick="revealPass()" />
   </label>
@@ -35,5 +42,19 @@
         }
     }
   </script>
+
+<?php
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
+
+// Check connection
+if (!$con) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+
+
+}
+
+
+
+?>
 
 </html>
