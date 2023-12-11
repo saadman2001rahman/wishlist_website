@@ -14,8 +14,8 @@ session_start();
 </head>
 <br><br>
 
-<div class = "form-container">
-  <form action="main_page.php" method = "POST">
+<div class="form-container">
+  <form action="sql_verify_user.php" method="POST">
     <div>
       <label for="uname"> Username: </label>
       <br>

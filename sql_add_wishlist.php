@@ -1,8 +1,10 @@
 <?php
-
+session_start();
 $wishlist_name = $_POST["wishlist_name"];
 // $wishlist_id = $_POST["wishlist_id"];
-$owner_id = 'first_user';
+// $owner_id = 'first_user';
+$owner_id = $_SESSION["Owner_id"];
+
 echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
