@@ -60,16 +60,4 @@
  <br>
  <a href = "login.php"> If you already have an account, log in here </a>
 
- <?php
-    foreach ($_POST as $key => $value) {
-        if(empty($value)) {
-            print ('<br>Warning: Missing value ' . $key .'!');
-     }
-    }
-    if(isset($_POST['display_name']) && !empty($_POST['display_name'])) {
-        $dname = $_POST['display_name'];
-        print("<br>" . $dname);
-    }
- ?>
-
 </html>
