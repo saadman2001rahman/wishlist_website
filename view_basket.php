@@ -1,46 +1,47 @@
-<!DOCTYPE <!DOCTYPE html>
-<html>
+<?php
+// session_start();
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Basket</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-</head>
+if (!$con) {
+    echo "Failed to connect: " . mysqli_connect_error();
+}
 
-<body>
-    <div className="nav_bar">
-        <h1>Basket</h1>
-        <a href="main_page.php">
-            <button title="Main Page"><img src="images/back.png" width="35" </button>
+$sql = "SELECT * FROM Item WHERE basket_id ='10'";
 
-        </a>
-    </div>
+$result = mysqli_query($con, $sql);
+if (!$result) {
+    die('Error: ' . mysqli_error($con));
+}
 
-    <!-- each wishlist entry -->
-    <?php
-    for ($basket_item = 0; $basket_item <= 10; $basket_item++) {
-        echo "
-        <div className=\"basket_item\">
-            <p>name of item</p>
-            <p>price of item</p>
-            <button className=\"remove_item_basket\">Remove</button>
-        </div>
-        ";
+$all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+echo "    <a href='main_page.php'>
+<button><img src='images/back.png' width='35'></button>
+</a>
+";
+
+
+//maybe add see total?
+//or call total in view basket site??
+//food for thought
+
+echo "<html><head><link rel='stylesheet' href='style.css'> 
+<title>Basket</title></head><body>";
+
+if ($result->num_rows > 0) {
+    echo "<table border='1'><tr><th>Item Name</th><th>Item Price</th><th>Due Date</th><th>From Wishlist</th></tr>";
+    foreach ($all_categories as $row) {
+        echo "<tr><td>" . $row["item_name"] . "</td><td>" . $row["Price"] . "</td><td>" . $row["Due_date"] . "</td><td>" . "<form action='sql_remove_from_basket.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove From Basket'></form>" .
+            "</td></tr>";
+
     }
-
-    for ($website = 0; $website <= 2; $website++) {
-        echo "<p>Shipping from webiste: $website = $10</p>";
-    }
-
-    echo "Total is: $100";
-    ?>
+    echo "</table>";
+} else {
+    echo "0 Items";
+}
+echo "</body></html>";
 
 
 
+mysqli_close($con);
 
-</body>
-
-</html>
+?>

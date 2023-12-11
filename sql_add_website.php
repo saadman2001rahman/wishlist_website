@@ -1,6 +1,6 @@
 <?php
 
-$webdomain = $_POST["website_domain"];
+$webdomain = $_POST["domain"];
 $shipcost = $_POST["cost"];
 // $coupons = $POST["coupons"];
 
