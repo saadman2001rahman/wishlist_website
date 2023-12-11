@@ -56,7 +56,7 @@ while ($caninsert == 0) {
 }
 
 // May need to change wishlist id; basket id
-$sql = "INSERT INTO item (Item_number, Name, Due_date, Link, Description, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
+$sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
         VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '10001', NULL, '$price')";
 
 if (!mysqli_query($con, $sql)) {
