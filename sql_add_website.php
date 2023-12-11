@@ -12,7 +12,32 @@ if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
 }
 
-$sql = "INSERT INTO website (Website_domain, Shipping_cost, Coupons) VALUES ('$webdomain', '$shipcost', '1234')";
+$caninsert = 0;
+$tryid = rand(0, 9999999);
+while ($caninsert == 0) {
+    // $tryid = rand(0, 99999999);
+    $result = mysqli_query($con, "SELECT Coupon_id FROM Coupons WHERE Coupon_id = '$tryid'");
+    if ($result !== false) {
+        if (mysqli_num_rows($result) == 0) {
+            $caninsert = 1;
+        } else {
+            $tryid = rand(0, 9999999);
+        }
+    } else {
+        echo 'Error in query: ' . mysqli_error($con);
+        die();
+    }
+}
+
+$sql = "INSERT INTO Coupons (Coupon_id, Value) VALUES ('$tryid', '0')";
+
+if (!mysqli_query($con, $sql)) {
+    die('Error: ' . mysqli_error($con));
+}
+
+
+
+$sql = "INSERT INTO website (Website_domain, Shipping_cost, Coupons) VALUES ('$webdomain', '$shipcost', '$tryid')";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));

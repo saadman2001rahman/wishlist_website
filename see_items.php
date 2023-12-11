@@ -1,6 +1,7 @@
 <?php
-// session_start();
+session_start();
 $wishlist_id = $_POST['wishlist_id'];
+$_SESSION['add_item_to_this_wishlist'] = $wishlist_id;
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$con) {
