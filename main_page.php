@@ -2,7 +2,8 @@
 <html>
 
 <?php
-// $owner_id = $_POST["dname"];
+session_start();
+$owner_id = $_SESSION["Owner_id"];
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$con) {
@@ -10,7 +11,7 @@ if (!$con) {
 }
 
 //write query for all wishlists
-$sql = "SELECT * FROM WISHLIST";
+$sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id'";
 
 //make query and get result
 $result = mysqli_query($con, $sql);

@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$wishlist_id = $_SESSION['add_item_to_this_wishlist'];
 $iname = $_POST["item_name"];
 $price = $_POST["price"];
 $icat = $_POST["item_category"];
@@ -16,11 +17,11 @@ $caninsert = 0;
 echo $iname. "<br>". $price. "<br>". $icat. "<br>". $ddate. "<br>". $description. "<br>". $link. "<br>";
 
 // Create connection
-$con=mysqli_connect("localhost", "root" ,"" ,"wishlist_website");
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
-if(!$con) {
-    echo "Failed to connect: ". mysqli_connect_error();
+if (!$con) {
+    echo "Failed to connect: " . mysqli_connect_error();
 }
 
 // Get domain from url
@@ -55,7 +56,7 @@ while ($caninsert == 0) {
 
 // May need to change wishlist id; basket id
 $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '10001', NULL, '$price')";
+        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '$wishlist_id', NULL, '$price')";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
