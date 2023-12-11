@@ -21,7 +21,7 @@
             <select name="item_category" id="item_category">
             <option value = "Select a category"></option>
                 <option value = "Select a category"></option>
-            <?php
+                <?php
                 // Get item categories from database
                 // Create connection
                 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
