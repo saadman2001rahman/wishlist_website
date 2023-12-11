@@ -16,20 +16,28 @@ session_start();
 
 <div class = "form-container">
   <form action="main_page.php" method = "POST">
-    <label for="dname"> Username: </label>
-    <br>
-    <input type="text" id="dname" name="dname">
-    <br>
-    <label for="pass"> Password: </label>
-    <br>
-    <input type="password" id="pass" name="pass">
-    <label for="reveal">
+    <div>
+      <label for="uname"> Username: </label>
       <br>
-      <input type="checkbox" id="reveal" onclick="revealPass()">
-      <img src="images/Eye-Black.png" height=15px width=20px onclick="revealPass()" />
-    </label>
+      <input type="text" id="uname" name="uname">
+    </div>
+    <br>
+    <div>
+      <label for="pass"> Password: </label>
+      <br>
+      <input type="password" id="pass" name="pass">
+    </div>
+    <div>
+      <label for="reveal">
+        <br>
+        <input type="checkbox" id="reveal" onclick="revealPass()">
+        <img src="images/Eye-Black.png" height=15px width=20px onclick="revealPass()" />
+      </label>
+    </div>
     <br><br>
-    <input type="submit" value="Submit">
+    <div>
+      <input type="submit" value="Submit">
+    </div>
   </form>
 </div>
 
@@ -45,19 +53,5 @@ session_start();
         }
     }
   </script>
-
-<?php
-$con = mysqli_connect("localhost", "root", "", "wishlist_website");
-
-// Check connection
-if (!$con) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-
-
-}
-
-
-
-?>
 
 </html>
