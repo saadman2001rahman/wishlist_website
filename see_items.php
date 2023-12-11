@@ -65,7 +65,7 @@ if ($result->num_rows > 0) {
         // $_SESSION['website_domain'] = $row["Website_domain"];
         // echo $row["wishlist_name"];
         echo "<tr><td>" . $row["Item_name"] . "</td><td>" . $row["Price"] . "</td><td>" . $row["Due_date"] . "</td><td>" . "<form action='sql_remove_item.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove'></form>" .
-            "</td><td>" . "<form action='sql_edit_item.php' method='post'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Edit'></form>" .
+            "</td><td>" . "<form action='edit_item.php' method='post'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Edit'></form>" .
             "</td><td>" . "<form action='sql_add_to_basket.php' method='POST'><input type='hidden' name='wishlist_id' value=" . $wishlist_id . ">" . "<input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Add To Basket'></form>" .
             "</td></tr>";
 
