@@ -100,10 +100,10 @@ CREATE TABLE `end_user` (
 
 CREATE TABLE `item` (
   `Item_number` int(11) NOT NULL,
-  `Name` varchar(20) NOT NULL,
+  `Item_name` varchar(20) NOT NULL,
   `Due_date` date DEFAULT NULL,
   `Link` varchar(300) NOT NULL,
-  `Description` varchar(300) DEFAULT NULL,
+  `Item_desc` varchar(300) DEFAULT NULL,
   `Item_category` int(11) DEFAULT NULL,
   `Website_domain` varchar(30) DEFAULT NULL,
   `Wishlist_id` int(11) NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `item` (
 
 CREATE TABLE `item_category` (
   `Category_id` int(11) NOT NULL,
-  `Name` varchar(20) NOT NULL
+  `Category_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
