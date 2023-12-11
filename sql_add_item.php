@@ -14,7 +14,7 @@ $caninsert = 0;
 // $baskid = $_POST["basket_id"];
 
 // Create connection
-$con=mysqli_connect("localhost","root","","wishlist_website");
+$con=mysqli_connect("localhost", "root" ,"" ,"wishlist_website");
 
 // Check connection
 if(!$con) {
