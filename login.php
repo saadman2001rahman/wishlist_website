@@ -54,4 +54,11 @@ session_start();
     }
   </script>
 
+<?php
+  if(isset($_GET["debugcode"]) && $_GET["debugcode"]) {
+    echo "<br><br> Invalid Credentials, please re-enter!";
+  }
+
+?>
+
 </html>
