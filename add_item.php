@@ -19,8 +19,7 @@
             <br>
             <label for="item_category">Item category:</label>
             <select name="item_category" id="item_category">
-            <option value = "Select a category"></option>
-                <option value = "Select a category"></option>
+            <option value = "Select a category">Select a category</option>
                 <?php
                 // Get item categories from database
                 // Create connection
@@ -33,7 +32,7 @@
                 $categories = ((mysqli_query($con, "SELECT Category_id, Category_name FROM item_category")));
                 while ($row = mysqli_fetch_array($categories)) {
                     //
-                    echo '<option value="' . $row['Category_id'] . '">' . $row['Name'] . '</option>';
+                    echo '<option value="' . $row['Category_id'] . '">' . $row['Category_name'] . '</option>';
                 }
                 mysqli_close($con);
                 ?>
