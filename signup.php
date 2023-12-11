@@ -12,32 +12,48 @@
 <div class = "form-container">
     <form action = "sql_add_user.php" method = "POST">
         <h2> Personal Info </h2>
-        <label for = "email"> Email: </label>
+        <div>
+            <label for = "email"> Email: </label>
+            <br>
+            <input type = "text" id = "email" name = "email">
+        </div>
         <br>
-        <input type = "text" id = "email" name = "email">
+        <div>
+            <label for = "addr"> Address: </label>
+            <br>
+            <input type = "text" id = "addr" name = "address">
+        </div>
         <br>
-        <label for = "addr"> Address: </label>
+        <div>
+            <label for = "phone"> Phone#: </label>
+            <br>
+            <input type = "text" id = "phone" name = "phone_number">
+        </div>
         <br>
-        <input type = "text" id = "addr" name = "address">
+        <div>
+            <h2> Login Info </h2>
+        </div>
+        <div>
+            <label for = "username"> Username: </label>
+            <br>
+            <input type = "text" id = "user_name" name = "username">
+        </div>
         <br>
-        <label for = "phone"> Phone#: </label>
+        <div>
+            <label for = "display_name"> Display name: </label>
+            <br>
+            <input type = "text" id = "display_name" name = "display_name">
+        </div>
         <br>
-        <input type = "text" id = "phone" name = "phone_number">
-        <br>
-        <h2> Login Info </h2>
-        <label for = "username"> Username: </label>
-        <br>
-        <input type = "text" id = "user_name" name = "username">
-        <br>
-        <label for = "display_name"> Display name: </label>
-        <br>
-        <input type = "text" id = "display_name" name = "display_name">
-        <br>
-        <label for = "pass"> Password: </label>
-        <br>
-        <input type = "text" id = "pass" name = "password">
+        <div>
+            <label for = "pass"> Password: </label>
+            <br>
+            <input type = "text" id = "pass" name = "password">
+        </div>
         <br><br>
-        <input type = "submit" value = "add">
+        <div>
+            <input type = "submit" value = "add">
+        </div>
     </form>
 </div>
  
