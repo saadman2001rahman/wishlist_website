@@ -1,12 +1,14 @@
 <?php
-// session_start();
+session_start();
+$owner_id = $_SESSION["Owner_id"];
+
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
 }
 
-$sql = "SELECT * FROM Item WHERE basket_id ='10'";
+$sql = "SELECT * FROM Item JOIN Basket ON Item.basket_id = Basket.Basket_id WHERE Basket.User_id = '$owner_id'";
 
 $result = mysqli_query($con, $sql);
 if (!$result) {
@@ -30,7 +32,7 @@ echo "<html><head><link rel='stylesheet' href='style.css'>
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Item Name</th><th>Item Price</th><th>Due Date</th><th>From Wishlist</th></tr>";
     foreach ($all_categories as $row) {
-        echo "<tr><td>" . $row["item_name"] . "</td><td>" . $row["Price"] . "</td><td>" . $row["Due_date"] . "</td><td>" . "<form action='sql_remove_from_basket.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove From Basket'></form>" .
+        echo "<tr><td>" . $row["Item_name"] . "</td><td>" . $row["Price"] . "</td><td>" . $row["Due_date"] . "</td><td>" . "<form action='sql_remove_from_basket.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove From Basket'></form>" .
             "</td></tr>";
 
     }
