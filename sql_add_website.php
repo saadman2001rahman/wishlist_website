@@ -4,6 +4,11 @@ $webdomain = $_POST["domain"];
 $shipcost = $_POST["cost"];
 // $coupons = $POST["coupons"];
 
+if (isset($_GET["domain"])) {
+    // Supposed to receive domain from sql_add_item
+    $webdomain = $_GET["domain"];
+}
+
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
