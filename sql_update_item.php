@@ -1,15 +1,15 @@
 <?php
 
 //not done
-$itemno;
-$name;
-$ddate;
-$description;
-$icategory;
-$price;
+$itemno = $_POST["item_number"];
+$iname = $_POST["item_name"];
+$ddate = $_POST["due_date"];
+$description = $_POST["item_desc"];
+$icategory = $_POST["item_cat"];
+$price = $_POST["price"];
 
 // Create connection
-$con=mysqli_connect("localhost","root","","wishlist_website");
+$con=mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
 if(!$con) {
@@ -18,7 +18,7 @@ if(!$con) {
 
 // not done
 $sql = "UPDATE item 
-        SET Name='".$name."', Due_date='".$ddate."', Description='".$description."', Item_category='".$icategory."', Price='".$price."'  
+        SET Name='".$name."', Due_date='".$ddate."', Item_desc='".$description."', Item_category='".$icategory."', Price='".$price."'  
         WHERE Item_number='$itemno'";
 
 if (!mysqli_query($con, $sql)) {

@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$wishlist_id = $_SESSION['add_item_to_this_wishlist'];
 $iname = $_POST["item_name"];
 $price = $_POST["price"];
 $icat = $_POST["item_category"];
@@ -13,32 +14,30 @@ $caninsert = 0;
 // $wishid = $_POST["wishlist_id"];
 // $baskid = $_POST["basket_id"];
 
+echo $iname. "<br>". $price. "<br>". $icat. "<br>". $ddate. "<br>". $description. "<br>". $link. "<br>";
+
 // Create connection
-$con=mysqli_connect("localhost", "root" ,"" ,"wishlist_website");
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
-if(!$con) {
-    echo "Failed to connect: ". mysqli_connect_error();
+if (!$con) {
+    echo "Failed to connect: " . mysqli_connect_error();
 }
 
-function getDomainFromUrl($url) {
-    $parsed_url = parse_url($url);
+// Get domain from url
+$domain = parse_url($link)['host'];
+echo $domain. "<br>";
 
-    // Check if the "host" key exists in the parsed URL array
-    if (isset($parsed_url['host'])) {
-        return $parsed_url['host'];
-    }
+$sql_check_domain = "SELECT * FROM website WHERE Website_domain='$domain'";
 
-    // If "host" is not present, the URL might be malformed or incomplete
-    return false;
-}
-
-$domain = getDomainFromUrl($link);
-
-if ($domain) {
-    echo "Domain: " . $domain;
+// Check if domain is in database
+$result = $con->query($sql_check_domain);
+if($result->num_rows > 0) {
+    echo "Domain exists.";
 } else {
-    echo "Invalid or incomplete URL.";
+    // If not in database, add it
+    echo "Domain does not exist.";
+    header("Location: sql_add_website.php?domain=".urlencode($domain));
 }
 
 while ($caninsert == 0) {
@@ -57,7 +56,7 @@ while ($caninsert == 0) {
 
 // May need to change wishlist id; basket id
 $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '10001', NULL, '$price')";
+        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '$wishlist_id', NULL, '$price')";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
@@ -68,5 +67,5 @@ if (!mysqli_query($con, $sql)) {
 // Close connection
 mysqli_close($con);
 
-header("Location: add_item.php");
+header("Location: see_items.php");
 ?>
