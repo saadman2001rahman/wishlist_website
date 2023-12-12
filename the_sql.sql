@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `administrator`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `administrator` (
   `User_id` varchar(20) NOT NULL,
   `Salary` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -214,9 +214,9 @@ CREATE TABLE `wishlist` (
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `administrator`
 --
-ALTER TABLE `admin`
+ALTER TABLE `administrator`
   ADD PRIMARY KEY (`User_id`);
 
 --
@@ -327,9 +327,9 @@ ALTER TABLE `wishlist`
 --
 
 --
--- Constraints for table `admin`
+-- Constraints for table `administrator`
 --
-ALTER TABLE `admin`
+ALTER TABLE `administrator`
   ADD CONSTRAINT `USERADMINFK` FOREIGN KEY (`User_id`) REFERENCES `master_user` (`User_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -374,7 +374,7 @@ ALTER TABLE `item`
 -- Constraints for table `moderates`
 --
 ALTER TABLE `moderates`
-  ADD CONSTRAINT `MODERATEADMINFK` FOREIGN KEY (`Admin_id`) REFERENCES `admin` (`User_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `MODERATEADMINFK` FOREIGN KEY (`Admin_id`) REFERENCES `administrator` (`User_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `MODERATEENDUSERFK` FOREIGN KEY (`User_id`) REFERENCES `end_user` (`User_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `MODERATEITEMFK` FOREIGN KEY (`Item_number`) REFERENCES `item` (`Item_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `MODERATEWISHLISTFK` FOREIGN KEY (`Wishlist_id`) REFERENCES `wishlist` (`Wishlist_id`) ON DELETE CASCADE ON UPDATE CASCADE;

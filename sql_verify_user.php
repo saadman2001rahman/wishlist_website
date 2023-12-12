@@ -16,6 +16,7 @@ if (!$con) {
 
 
 $sql = "SELECT * FROM  master_user WHERE User_id='$user_id' AND User_password='$password'";
+$admin = "SELECT * FROM administrator WHERE User_id='$user_id";
 
 
 $result = mysqli_query($con, $sql);
@@ -28,9 +29,17 @@ if ($result->num_rows == 0) {
     $debugcode = "Login Attempt Failed. Please Try Again.";
     $headercode = "Location: login.php?debugcode=";
 } else {
-
-    $debugcode = "Login Passed";
-    $headercode = "Location: main_page.php?debugcode=";
+    $result = mysqli_query($con,$admin);
+    if (!$result) {
+        die('Error: ' . mysqli_error($con));
+    }
+    if ($result->num_rows == 0) {
+        $debugcode = "Admin Login";
+        $headercode = "Location: admin_main_page.php?debugcode=";
+    } else {
+        $debugcode = "Login Passed";
+        $headercode = "Location: main_page.php?debugcode=";
+    }
     foreach ($all_categories as $row) {
         $_SESSION['Owner_id'] = $row['User_id'];
     }
