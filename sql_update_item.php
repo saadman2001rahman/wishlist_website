@@ -4,21 +4,21 @@
 $itemno = $_POST["item_number"];
 $iname = $_POST["item_name"];
 $ddate = $_POST["due_date"];
-$description = $_POST["item_desc"];
-$icategory = $_POST["item_cat"];
+$description = $_POST["description"];
+$icategory = $_POST["item_category"];
 $price = $_POST["price"];
 
 // Create connection
-$con=mysqli_connect("localhost", "root", "", "wishlist_website");
+$con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
 // Check connection
-if(!$con) {
-    echo "Failed to connect: ". mysqli_connect_error();
+if (!$con) {
+    echo "Failed to connect: " . mysqli_connect_error();
 }
 
 // not done
 $sql = "UPDATE item 
-        SET Name='".$name."', Due_date='".$ddate."', Item_desc='".$description."', Item_category='".$icategory."', Price='".$price."'  
+        SET Item_name='$iname', Due_date='$ddate', Item_desc='$description', Item_category='$icategory', Price='$price'  
         WHERE Item_number='$itemno'";
 
 if (!mysqli_query($con, $sql)) {
@@ -29,6 +29,6 @@ if (!mysqli_query($con, $sql)) {
 
 // Close connection
 mysqli_close($con);
-header("Location: main_page.php");
+header("Location: see_items.php");
 
 ?>

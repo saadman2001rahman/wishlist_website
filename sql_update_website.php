@@ -1,8 +1,6 @@
 <?php
-
-session_start();
-$itemid = $_POST['item_number'];
-
+$website_domain = $_POST['website_domain'];
+$shipval = $_POST['shipval'];
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
@@ -11,13 +9,13 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "DELETE FROM	ITEM WHERE Item_number='$itemid'";
+$sql = "UPDATE website SET Shipping_cost='$shipval' WHERE Website_domain = '$website_domain'";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
 }
 
 mysqli_close($con);
-header("Location: see_items.php");
+header("Location: view_websites.php");
 exit();
 ?>
