@@ -51,6 +51,10 @@ if (!mysqli_query($con, $sql)) {
 
 mysqli_close($con);
 
-header("Location: view_websites.php");
+if (empty($_SESSION['headerforwebsite'])) {
+    header("Location: view_websites.php");
+} else {
+    header("Location: see_items.php");
+}
 exit();
 ?>

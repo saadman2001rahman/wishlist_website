@@ -14,7 +14,7 @@ $caninsert = 0;
 // $wishid = $_POST["wishlist_id"];
 // $baskid = $_POST["basket_id"];
 
-echo $iname. "<br>". $price. "<br>". $icat. "<br>". $ddate. "<br>". $description. "<br>". $link. "<br>";
+echo $iname . "<br>" . $price . "<br>" . $icat . "<br>" . $ddate . "<br>" . $description . "<br>" . $link . "<br>";
 
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
@@ -26,18 +26,19 @@ if (!$con) {
 
 // Get domain from url
 $domain = parse_url($link)['host'];
-echo $domain. "<br>";
+echo $domain . "<br>";
 
 $sql_check_domain = "SELECT * FROM website WHERE Website_domain='$domain'";
 
 // Check if domain is in database
 $result = $con->query($sql_check_domain);
-if($result->num_rows > 0) {
+if ($result->num_rows > 0) {
     echo "Domain exists.";
 } else {
     // If not in database, add it
     echo "Domain does not exist.";
-    header("Location: sql_add_website.php?domain=".urlencode($domain));
+    $_SESSION['headerforwebsite'] = 'see_items.php';
+    header("Location: sql_add_website.php?domain=" . urlencode($domain));
 }
 
 while ($caninsert == 0) {
