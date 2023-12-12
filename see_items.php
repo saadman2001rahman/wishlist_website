@@ -6,6 +6,9 @@ if (empty($_POST['wishlist_id'])) {
 } else {
     $wishlist_id = $_POST['wishlist_id'];
 }
+
+$_SESSION['basket_wishlist_id'] = $wishlist_id;
+
 $_SESSION['add_item_to_this_wishlist'] = $wishlist_id;
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
@@ -27,7 +30,7 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 echo "    <a href='main_page.php'>
 <button><img src='images/back.png' width='35'></button>
-</a>
+</'>
 ";
 
 echo "    <a href='add_item.php'>
@@ -55,8 +58,40 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
+echo "
+<form action='see_items.php' method='post'>
+<input type='text' name='iname'>
 
-$sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id'";
+<label for='choices'>Sory by:</label>
+<select id='choices' name='choices'>
+    <option value='Item_name ASC'>DEFAULT</option>
+    <option value='Price ASC'>Price ASC</option>
+    <option value='Price DESC'>Price DESC</option>
+    <option value='Item_name ASC'>Name ASC</option>
+    <option value='Item_name DESC'>Name DESC</option>
+    <option value='Due_date ASC'>Due Date ASC</option>
+    <option value='Due_date DESC'>Due Date DESC</option>
+
+</select>
+<br>
+
+
+<input type='submit' name='search' value='search'>
+</form>
+";
+
+
+
+if (empty($_POST['iname']) and empty($_POST['choices'])) {
+    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id'";
+} else {
+    $itemname = $_POST['iname'];
+    $order = $_POST['choices'];
+    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id' and Item_name LIKE '%$itemname%' ORDER BY $order";
+}
+
+
+// $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id'";
 
 $result = mysqli_query($con, $sql);
 if (!$result) {
