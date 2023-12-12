@@ -83,12 +83,14 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </div>
         <div>
             <?php
-            $result_bask_val = $con->query($sql);
-            if ($result_bask_val==false) {
+            $sql_value = "SELECT * FROM total WHERE User_id='$owner_id'";
+            $result_value = mysqli_query($con, $sql_value);
+            if (!$result_value) {
                 die('Error: ' . mysqli_error($con));
             }
-            $row_basket = $result_bask_val->fetch_assoc();
-            echo $row_basket['basket_value'];
+            $row_value = mysqli_fetch_array($result_value);
+            $total_value = $row_value["Total_value"];
+            echo "<p>Total Value: $".$total_value."</p>";
             ?>
         </div>
     </body>
