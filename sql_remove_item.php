@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$itemid = $_SESSION['item_id'];
+$itemid = $_POST['item_number'];
 
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
