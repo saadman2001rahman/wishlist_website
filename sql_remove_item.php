@@ -3,6 +3,7 @@
 session_start();
 $itemid = $_POST['item_number'];
 $admin = $_POST['admin'];
+
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
 
