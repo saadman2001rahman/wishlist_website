@@ -18,6 +18,6 @@ if (!mysqli_query($con, $sql)) {
 }
 
 mysqli_close($con);
-header("Location: view_items.php");
+header("Location: see_items.php");
 exit();
 ?>
