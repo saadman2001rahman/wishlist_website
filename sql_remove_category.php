@@ -1,6 +1,7 @@
 <?php
 session_start();
-$category_id = $_SESSION['category_id'];
+$category_id = $_POST['category_id'];
+$admin = $_POST['admin'];
 // echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
@@ -22,6 +23,10 @@ if (!mysqli_query($con, $sql)) {
 
 
 mysqli_close($con);
-header("Location: view_category.php");
+if($admin != 'true') {
+    header("Location: view_category.php");
+} else {
+    header("Location: all_categories.php");
+}
 exit();
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-$itemid = $_POST['item_number'];
+$user = $_POST['user_id'];
 $admin = $_POST['admin'];
 // Create connection
 $con = mysqli_connect("localhost", "root", "", "wishlist_website");
@@ -11,17 +11,17 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "DELETE FROM	ITEM WHERE Item_number='$itemid'";
+$sql = "DELETE FROM	master_user WHERE User_id='$user'";
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
+
+
+if($admin == 'true') {
+    if (!mysqli_query($con, $sql)) {
+        die('Error: ' . mysqli_error($con));
+    }
 }
 
 mysqli_close($con);
-if($admin != 'true') {
-    header("Location: see_items.php");
-} else {
-    header("Location: all_items.php");
-}
+header("Location: all_users.php");
 exit();
 ?>

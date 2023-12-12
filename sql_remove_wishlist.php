@@ -1,6 +1,7 @@
 <?php
 // session_start();
 $wishlist_id = $_POST['wishlist_id'];
+$admin = $_POST['admin'];
 // echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 
@@ -22,6 +23,10 @@ if (!mysqli_query($con, $sql)) {
 
 
 mysqli_close($con);
-header("Location: main_page.php");
+if($admin != 'true') {
+    header("Location: main_page.php");
+} else {
+    header("Location: all_wishlists.php");
+}
 exit();
 ?>
