@@ -4,6 +4,7 @@ $owner_id = $_SESSION["Owner_id"];
 
 $item_id = $_POST['item_number'];
 $wishlist_id = $_POST['wishlist_id'];
+$_SESSION['basket_wishlist_id'] = $wishlist_id;
 
 
 
@@ -34,7 +35,6 @@ if (!mysqli_query($con, $sql)) {
 }
 
 mysqli_close($con);
-// header("Location: see_items.php");
-echo '<script>window.history.back();</script>';
+header("Location: see_items.php");
 exit();
 ?>
