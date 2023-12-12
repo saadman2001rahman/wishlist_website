@@ -1,17 +1,15 @@
-input[type = text] {
-    border-color:plum;
-    border-radius: 25px;
-}
-input[type = password] {
-    border-color:plum;
-    border-radius: 25px;
-}
-input[type = submit] {
+input {
     border-color:plum;
     border-radius: 25px;
 }
 input[type = checkbox] {
     border-radius: 30px;
+}
+select {
+    border-radius: 25px;
+}
+option {
+    border-radius: 25px;
 }
 h1 {
     text-align: center;
