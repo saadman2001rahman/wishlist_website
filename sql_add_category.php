@@ -39,6 +39,6 @@ if (!mysqli_query($con, $sql)) {
 
 mysqli_close($con);
 
-header("Location: main_page.php");
+header("Location: view_category.php");
 exit();
 ?>
