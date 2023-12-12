@@ -23,7 +23,7 @@
         echo "
         <div className=\"item_entries\">
             <p>name of item</p>
-            <button className=\"button_delete_item\">Delete</button>
+            <button className=\"button_delete_item\">Delete </button>
         </div>
         ";
     }
