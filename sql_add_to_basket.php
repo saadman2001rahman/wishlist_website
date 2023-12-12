@@ -35,6 +35,6 @@ if (!mysqli_query($con, $sql)) {
 }
 
 mysqli_close($con);
-header("Location: see_items.php");
+header("Location: view_items.php");
 exit();
 ?>

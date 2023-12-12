@@ -10,6 +10,7 @@
         <button><img src="images/back.png" width="10" length="10"></button>
     </a>
 
+    <body>
         <form action="sql_add_item.php" method="post">
             <label for="item_name">Item name:</label>
             <input type="text" id="item_name" name="item_name"><br>
@@ -19,7 +20,7 @@
             <br>
             <label for="item_category">Item category:</label>
             <select name="item_category" id="item_category">
-            <option value = "Select a category">Select a category</option>
+            <option value="">Select a category</option>
                 <?php
                 // Get item categories from database
                 // Create connection
@@ -39,7 +40,7 @@
             </select><br>
             <br>
             <label for="due_date">Item due date: </label>
-            <input type="date" id="due_date" name="due_date" max="2025-12-31"><br>
+            <input type="date" id="due_date" name="due_date" max="2027-12-31"><br>
             <br>
             <label for="description">Description:</label>
             <input type="text" id="description" name="description"><br>
@@ -50,7 +51,7 @@
             <input type="submit" value="Add">
             <input type="reset" value="Clear">
         </form>
-
+    </body>
 </html>
 
 <?php
