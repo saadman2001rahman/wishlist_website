@@ -17,27 +17,30 @@
             <button>View</button>
         </a>
     </div>
+    <br>
     <div>
         <p>View all Wishlists:</p>
         <a href="all_wishlists.php">
             <button>View</button>
         </a>
     </div>
+    <br>
     <div>
         <p>View all Items:</p>
         <a href="all_items.php">
             <button>View</button>
         </a>
     </div>
+    <br>
     <div>
         <p>View all Categories:</p>
         <a href="all_categories.php">
             <button>View</button>
         </a>
-    </div>
-
+    </div>      
+    <br><br><br>
     <a href="login.php">
-        <button>logout</button>
+        <button>Logout</button>
     </a>
 
 </body>
