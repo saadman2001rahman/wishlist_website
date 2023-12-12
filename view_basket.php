@@ -20,80 +20,79 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 
 <html>
-    <a href='main_page.php'>
-        <button><img src='images/back.png' width='35'></button>
-    </a>
-    <head>
-        <link rel='stylesheet' href='style.css'>
-        <title>Basket</title>
-    </head>
-    <body>
-        <h1>Basket</h1>
-        <div>
-            <?php
-            if ($result->num_rows > 0) {
-                echo "<table border='1'>
+<a href='main_page.php'>
+    <button><img src='images/back.png' width='35'></button>
+</a>
+
+<head>
+    <link rel='stylesheet' href='style.css'>
+    <title>Basket</title>
+</head>
+
+<body>
+    <h1>Basket</h1>
+    <div>
+        <?php
+        if ($result->num_rows > 0) {
+            echo "<table border='1'>
                         <tr>
                             <th>Item Name</th>
                             <th>Item Price</th>
                             <th>Due Date</th>
                             <th>From Wishlist</th>
                         </tr>";
-                foreach ($all_categories as $row) {
-                    echo "<tr>
+            foreach ($all_categories as $row) {
+                echo "<tr>
                             <td>" . $row["Item_name"] . "</td>
                             <td>" . $row["Price"] . "</td>
                             <td>" . $row["Due_date"] . "</td>
-                            <td>" . "<form action='sql_remove_from_basket.php' method='POST'><input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove From Basket'></form>" .
+                            <td>" . "<form action='sql_remove_from_basket.php' method='POST'><input type='hidden' name='item_price' value=" . $row['Price'] . ">" . "<input type='hidden' name='item_number' value=" . $row['Item_number'] . ">" . "<input type='submit' value='Remove From Basket'></form>" .
                     "</td></tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "0 Items";
             }
-            ?>
-        </div>
-        <div>
-            <form action="sql_calculate.php" method="post">
-                <label for="coupon">Add Coupon:</label>
-                <select name="coupon" id="coupon">
-                <option value = "">Select Coupon</option>
-                    <?php
-                    $coupons = ((mysqli_query($con, "SELECT * FROM coupons")));
-                    while ($row = mysqli_fetch_array($coupons)) {
-                        echo '<option value="' . $row['Coupon_id'] . '">' . $row['Value'] . '</option>';
-                    }
-                    ?>
-                </select>    
-                <br>
-                <label for="shipping">Select a website to apply shipping cost:</label>
-                <select name="shipping" id="shipping">
-                <option value = "">Select Website</option>
-                    <?php
-                    $websites = ((mysqli_query($con, "SELECT * FROM Website")));
-                    while ($row = mysqli_fetch_array($websites)) {
-                        echo '<option value="' . $row['Website_domain'] . '">' . $row['Website_domain'] . '</option>';
-                    }
-                    ?>
-                </select>
-                <br>
-                <input type="submit" value="Update Total">
-                <input type="reset" value="Clear">
-            </form>    
-        </div>
-        <div>
-            <?php
-            $sql_value = "SELECT * FROM total WHERE User_id='$owner_id'";
-            $result_value = mysqli_query($con, $sql_value);
-            if (!$result_value) {
-                die('Error: ' . mysqli_error($con));
-            }
-            $row_value = mysqli_fetch_array($result_value);
-            $total_value = $row_value["Total_value"];
-            echo "<p>Total Value: $".$total_value."</p>";
-            ?>
-        </div>
-    </body>
+            echo "</table>";
+        } else {
+            echo "0 Items";
+        }
+        ?>
+    </div>
+    <div>
+        <?php
+        $sql = "SELECT Basket_Value FROM Basket WHERE User_id = '$owner_id'";
+
+        $result = mysqli_query($con, $sql);
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
+
+        $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($all_categories as $row) {
+            echo "Total Of All Items In Basket:" . $row['Basket_Value'] . "";
+        }
+
+        // $sql = "SELECT Website.Shipping_cost, Coupons.Value FROM item JOIN website on item.Website_domain = website.Website_domain JOIN Coupons on Coupons.Coupon_id = Website.Coupons JOIN Basket on Basket.Basket_id = item.Basket_id WHERE Basket.User_id = '$owner_id'";
+        // $result = mysqli_query($con, $sql);
+        // if (!$result) {
+        //     die('Error: ' . mysqli_error($con));
+        // }
+        
+        // $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // foreach ($all_categories as $row) {
+        //     echo "Coupon Availabe:" . $row['Value'] . "";
+        // }
+        // foreach ($all_categories as $row) {
+        //     echo "Shipping cost :" . $row['Shipping_cost'] . "";
+        // }
+        
+
+
+
+        ?>
+
+    </div>
+
+
+</body>
+
 </html>
 
 <?php
