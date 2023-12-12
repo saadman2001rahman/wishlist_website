@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th></tr>";
     foreach ($all_categories as $row) {
         $_SESSION['category_id'] = $row["Category_id"];
-        echo "<tr><td>" . $row["Category_name"] . "</td><td>" . "<form action='sql_remove_category.php'><input type='submit' value='Remove'></form>";
+        echo "<tr><td>" . $row["Category_name"] . "</td><td>" . "<form action='sql_remove_category.php' method = 'POST'><input type='hidden' name='category_id' value=" . $row['Category_id'] . ">" . "<input type='submit' value='Remove'></form>";
         "</td></tr>";
 
 
