@@ -1,25 +1,6 @@
 <!DOCTYPE <!DOCTYPE html>
 <html>
 
-<?php
-session_start();
-$owner_id = $_SESSION["Owner_id"];
-$con = mysqli_connect("localhost", "root", "", "wishlist_website");
-
-if (!$con) {
-    echo "Connection error: " . mysqli_connect_error();
-}
-
-//write query for all wishlists
-$sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id'";
-
-//make query and get result
-$result = mysqli_query($con, $sql);
-
-//fetch as array
-$alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-?>
 
 <head>
     <meta charset="utf-8">
@@ -47,10 +28,40 @@ $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </form>
 
         <a href="view_basket.php">
-            <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35"
-                    </button>
+            <button title="Go To Basket" className="button_show_basket"><img src="images/basket_image.png" width="35" />
+            </button>
         </a>
+        <form action="main_page.php" method="post">
+            <input type='text' name="wname">
+            <input type='submit' name='search' value='search'>
+        </form>
+
     </div>
+
+    <?php
+    session_start();
+    $owner_id = $_SESSION["Owner_id"];
+    $con = mysqli_connect("localhost", "root", "", "wishlist_website");
+
+    if (!$con) {
+        echo "Connection error: " . mysqli_connect_error();
+    }
+
+    if (empty($_POST['wname'])) {
+        $sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id'";
+    } else {
+        $thename = $_POST['wname'];
+        $sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id' and Wishlist_name LIKE '%$thename%'";
+    }
+
+    //make query and get result
+    $result = mysqli_query($con, $sql);
+
+    //fetch as array
+    $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    ?>
+
 
 
     <?php
