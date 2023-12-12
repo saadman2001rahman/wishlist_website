@@ -16,11 +16,16 @@ if (!$con) {
 
 
 $sql = "SELECT * FROM  master_user WHERE User_id='$user_id' AND User_password='$password'";
-$admin = "SELECT * FROM administrator WHERE User_id='$user_id";
+$admin = "SELECT * FROM administrator WHERE User_id='$user_id'";
 
 
 $result = mysqli_query($con, $sql);
+$r = mysqli_query($con, $admin);
 if (!$result) {
+    die('Error: ' . mysqli_error($con));
+}
+
+if (!$r) {
     die('Error: ' . mysqli_error($con));
 }
 
@@ -29,11 +34,7 @@ if ($result->num_rows == 0) {
     $debugcode = "Login Attempt Failed. Please Try Again.";
     $headercode = "Location: login.php?debugcode=";
 } else {
-    $result = mysqli_query($con,$admin);
-    if (!$result) {
-        die('Error: ' . mysqli_error($con));
-    }
-    if ($result->num_rows == 0) {
+    if ($r->num_rows > 0) {
         $debugcode = "Admin Login";
         $headercode = "Location: admin_main_page.php?debugcode=";
     } else {
