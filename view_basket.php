@@ -27,7 +27,7 @@ echo "    <a href='main_page.php'>
 //food for thought
 
 echo "<html><head><link rel='stylesheet' href='style.css'> 
-<title>Basket</title></head><body>";
+<title>Basket</title></head><body><h1>Basket</h1>";
 
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Item Name</th><th>Item Price</th><th>Due Date</th><th>From Wishlist</th></tr>";
