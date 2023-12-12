@@ -70,7 +70,7 @@
         echo "<table border='1'><tr><th>Name</th></tr>";
         foreach ($alwishlists as $row) {
             echo "<tr><td>" . $row["Wishlist_name"] . "</td><td>" . "<form action='sql_remove_wishlist.php' method='POST'>           <input type='hidden' name='wishlist_id' value=" . $row['Wishlist_id'] . ">" . "<input type='submit' value='Remove'></form>" .
-                "</td><td>" . "<form action='see_items.php' method='post'><input type='hidden' name='wishlist_id' value=" . $row['Wishlist_id'] . ">" . "<input type='submit' value='Edit'></form>";
+                "</td><td>" . "<form action='view_items.php' method='post'><input type='hidden' name='wishlist_id' value=" . $row['Wishlist_id'] . ">" . "<input type='submit' value='Edit'></form>";
             "</td></tr>";
 
 
