@@ -8,6 +8,13 @@ $ddate = $_POST["due_date"];
 $description = $_POST["description"];
 $link = $_POST["link"];
 
+$_SESSION['add_name'] = $iname;
+$_SESSION['add_price'] = $price;
+$_SESSION['add_cat'] = $icat;
+$_SESSION['add_ddate'] = $ddate;
+$_SESSION['add_desc'] = $description;
+$_SESSION['add_link'] = $link;
+
 $itemid = rand(0, 99999);
 $caninsert = 0;
 
@@ -24,23 +31,6 @@ if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
 }
 
-// Get domain from url
-$domain = parse_url($link)['host'];
-echo $domain . "<br>";
-
-$sql_check_domain = "SELECT * FROM website WHERE Website_domain='$domain'";
-
-// Check if domain is in database
-$result = $con->query($sql_check_domain);
-if ($result->num_rows > 0) {
-    echo "Domain exists.";
-} else {
-    // If not in database, add it
-    echo "Domain does not exist.";
-    $_SESSION['headerforwebsite'] = 'see_items.php';
-    header("Location: sql_add_website.php?domain=" . urlencode($domain));
-}
-
 while ($caninsert == 0) {
     $result = mysqli_query($con, "SELECT Item_number FROM item WHERE Item_number = '$itemid'");
     if ($result !== false) {
@@ -54,6 +44,42 @@ while ($caninsert == 0) {
         die();
     }
 }
+
+
+// Get domain from url
+$domain = parse_url($link)['host'];
+echo $domain . "<br>";
+
+$sql_check_domain = "SELECT * FROM website WHERE Website_domain='$domain'";
+
+$_SESSION['add_item_id'] = $itemid;
+
+$_SESSION['add_wishlist_id'] = $wishlist_id;
+
+// Check if domain is in database
+$result = $con->query($sql_check_domain);
+if ($result->num_rows > 0) {
+    echo "Domain exists.";
+} else {
+    // If not in database, add it
+    echo "Domain does not exist.";
+    $_SESSION['headerforwebsite'] = 'see_items.php';
+    header("Location: sql_add_website.php?domain=" . urlencode($domain));
+}
+
+// while ($caninsert == 0) {
+//     $result = mysqli_query($con, "SELECT Item_number FROM item WHERE Item_number = '$itemid'");
+//     if ($result !== false) {
+//         if (mysqli_num_rows($result) == 0) {
+//             $caninsert = 1;
+//         } else {
+//             $itemid = rand(0, 9999999);
+//         }
+//     } else {
+//         echo 'Error in query: ' . mysqli_error($con);
+//         die();
+//     }
+// }
 
 // May need to change wishlist id; basket id
 $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
