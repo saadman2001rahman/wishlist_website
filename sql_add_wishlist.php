@@ -35,14 +35,24 @@ while ($caninsert == 0) {
 }
 
 
-$sql = "INSERT INTO wishlist (Wishlist_id, Wishlist_name, Owner_id) VALUES ('$tryid', '$wishlist_name','$owner_id')";
+$sql = "INSERT INTO wishlist (Wishlist_id, Wishlist_name, Owner_id) VALUES ('$tryid', ?,?)";
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "ss", $wishlist_name, $owner_id);
+
+mysqli_stmt_execute($stmt);
+
+$res = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
 
 
-if (!mysqli_query($con, $sql)) {
-    // Print the error for debugging
-    echo 'Error: ' . mysqli_error($con);
-    die();
-}
+
+// if (!mysqli_query($con, $sql)) {
+//     // Print the error for debugging
+//     echo 'Error: ' . mysqli_error($con);
+//     die();
+// }
 
 
 mysqli_close($con);
