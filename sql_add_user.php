@@ -118,6 +118,7 @@ if (!mysqli_query($con, $sql3)) {
 }
 
 mysqli_close($con);
-header("Location: login.php");
+echo 'hello i am here';
+header("Location: index.php");
 
 ?>
