@@ -55,7 +55,7 @@ if (!$res) {
 
 $sql = "INSERT INTO website (Website_domain, Shipping_cost, Coupons) VALUES ('$webdomain', '$shipcost', '$tryid')";
 
-if(mysqli_num_rows($res)== 0) {
+if (mysqli_num_rows($res) == 0) {
     if (!mysqli_query($con, $sql)) {
         die('Error: ' . mysqli_error($con));
     }

@@ -56,7 +56,7 @@ while ($caninsert == 0) {
     }
 }
 
-
+$inserted = 0;
 // Get domain from url
 $domain = parse_url($link)['host'];
 echo $domain . "<br>";
@@ -85,6 +85,7 @@ if ($result->num_rows > 0) {
     echo "Domain does not exist.";
     $_SESSION['headerforwebsite'] = 'see_items.php';
     header("Location: sql_add_website.php?domain=" . urlencode($domain));
+    $inserted = 1;
 }
 
 // while ($caninsert == 0) {
@@ -101,25 +102,29 @@ if ($result->num_rows > 0) {
 //     }
 // }
 
-// May need to change wishlist id; basket id
-$sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
+if ($inserted = 0) {
+
+
+    // May need to change wishlist id; basket id
+    $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
         VALUES (?, ?, '$ddate', ?, ?, ?, ?, ?, NULL, ?)";
 
-$stmt = mysqli_prepare($con, $sql);
+    $stmt = mysqli_prepare($con, $sql);
 
-mysqli_stmt_bind_param($stmt, "isssisid", $itemid, $iname, $link, $description, $icat, $domain, $wishlist_id, $price);
+    mysqli_stmt_bind_param($stmt, "isssisid", $itemid, $iname, $link, $description, $icat, $domain, $wishlist_id, $price);
 
-mysqli_stmt_execute($stmt);
+    mysqli_stmt_execute($stmt);
 
 
-$result = mysqli_stmt_get_result($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-mysqli_stmt_close($stmt);
+    mysqli_stmt_close($stmt);
 
-if (!$result) {
-    die('Error: ' . mysqli_error($con));
-} else {
-    echo "1 record added";
+    if (!$result) {
+        die('Error: ' . mysqli_error($con));
+    } else {
+        echo "1 record added";
+    }
 }
 
 // Close connection
