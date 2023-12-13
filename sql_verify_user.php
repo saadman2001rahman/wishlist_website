@@ -47,7 +47,7 @@ mysqli_stmt_close($stmt_admin);
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if ($result->num_rows == 0) {
     $debugcode = "Login Attempt Failed. Please Try Again.";
-    $headercode = "Location: login.php?debugcode=";
+    $headercode = "Location: index.php?debugcode=";
 } else {
     if ($r->num_rows > 0) {
         $debugcode = "Admin Login";

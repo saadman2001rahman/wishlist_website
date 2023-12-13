@@ -101,7 +101,7 @@
 
     ?>
 
-    <a href="login.php">
+    <a href="index.php">
         <button>logout</button>
     </a>
 
