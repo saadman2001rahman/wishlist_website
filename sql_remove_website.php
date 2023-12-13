@@ -1,6 +1,6 @@
 <?php
 session_start();
-$website_domain = $_SESSION['website_domain'];
+$website_domain = $_POST['website_domain'];
 // echo $wishlist_name . "<br>" . $wishlist_id . "<br>" . $owner_id;
 
 

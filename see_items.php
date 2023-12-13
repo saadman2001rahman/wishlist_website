@@ -48,16 +48,44 @@ if ($result->num_rows > 0) {
     // echo "<table border='1'><tr><th>Name</th></tr>";
     foreach ($all_categories as $row) {
         // $_SESSION['website_domain'] = $row["Website_domain"];
-        echo $row["wishlist_name"];
-        echo "<form action='edit_wishlist.php' method = 'POST'> <input type='text' id='dname' name='dname'>
-        <input type='submit' value='Change'>
-        </form>";
+        // echo $row["wishlist_name"];
+        echo "<form action='edit_wishlist.php' method = 'POST'><label>" . $row["wishlist_name"] . "<input type='text' id='dname' name='dname'>
+        <input type='submit' value='Change Wishlist Name'>
+        </form><br><br>";
 
     }
     echo "</table>";
 } else {
     echo "0 results";
 }
+
+
+$sql = "SELECT Name FROM recipient WHERE wishlist_id= '$wishlist_id'";
+
+$result = mysqli_query($con, $sql);
+if (!$result) {
+    die('Error: ' . mysqli_error($con));
+}
+
+$all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+if ($result->num_rows > 0) {
+    foreach ($all_categories as $row) {
+        echo "<form action='edit_recipient.php' method = 'POST'><label>" . $row["Name"] . "</label><input type='text' id='iname' name='iname'>
+        <input type='submit' value='Change Recipient Name'>
+        </form><br><br>";
+
+    }
+    echo "</table>";
+} else {
+    echo "<form action='sql_add_recipient.php' method = 'POST'><input type='text' id='iname' name='iname'>
+        <input type='submit' value='Add Recipient to Wishlist'>
+        </form><br><br>";
+
+    // echo "0 results";
+}
+
+
 echo "
 <form action='see_items.php' method='post'>
 <input type='text' name='iname'>
@@ -91,7 +119,6 @@ if (empty($_POST['iname']) and empty($_POST['choices'])) {
 }
 
 
-// $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id'";
 
 $result = mysqli_query($con, $sql);
 if (!$result) {
