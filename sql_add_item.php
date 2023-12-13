@@ -103,8 +103,6 @@ if ($result->num_rows > 0) {
 // }
 
 if ($inserted = 0) {
-
-
     // May need to change wishlist id; basket id
     $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
         VALUES (?, ?, '$ddate', ?, ?, ?, ?, ?, NULL, ?)";
@@ -125,10 +123,10 @@ if ($inserted = 0) {
     } else {
         echo "1 record added";
     }
+    mysqli_close($con);
+
+    header("Location: see_items.php");
 }
 
 // Close connection
-mysqli_close($con);
-
-header("Location: see_items.php");
 ?>
