@@ -16,43 +16,81 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql1 = "SELECT Basket_id FROM Basket Where User_id = '$owner_id'";
-$result1 = mysqli_query($con, $sql1);
+$sql1 = "SELECT Basket_id FROM Basket Where User_id = ?";
+$stmt = mysqli_prepare($con, $sql1);
+
+mysqli_stmt_bind_param($stmt, "s", $owner_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result1 = mysqli_stmt_get_result($stmt);
+
+
 if (!$result1) {
     die('Error: ' . mysqli_error($con));
 }
 
 $all_categories = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
+
 foreach ($all_categories as $row) {
     $basket_id = $row['Basket_id'];
     // $prevval = $row['Basket_Value'];
 }
 
 
-$sql = "UPDATE item SET Basket_id='$basket_id' WHERE Item_number = '$item_id'";
-$result1 = mysqli_query($con, $sql);
-if (!$result1) {
-    die('Error: ' . mysqli_error($con));
-}
+$sql = "UPDATE item SET Basket_id='$basket_id' WHERE Item_number = ?";
 
-$sql = "SELECT Price FROM item WHERE item_number = '$item_id'";
-$result1 = mysqli_query($con, $sql);
-if (!$result1) {
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $item_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+// if (!$result) {
+//     die('Error: ' . mysqli_error($con));
+// }
+
+$sql = "SELECT Price FROM item WHERE item_number = ?";
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $item_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+
+if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
 $all_categories = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
+
 foreach ($all_categories as $row) {
     $itemprice = $row['Price'];
 }
 
 
 
-$sql = "UPDATE Basket SET Basket_Value=Basket_Value + '$itemprice' WHERE User_id = '$owner_id'";
+$sql = "UPDATE Basket SET Basket_Value=Basket_Value + '$itemprice' WHERE User_id = ?";
+$stmt = mysqli_prepare($con, $sql);
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
-}
+mysqli_stmt_bind_param($stmt, "i", $owner_id);
 
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
 
 mysqli_close($con);
 header("Location: see_items.php");
