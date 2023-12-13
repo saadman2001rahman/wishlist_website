@@ -25,14 +25,34 @@ if (!$result1) {
 $all_categories = mysqli_fetch_all($result1, MYSQLI_ASSOC);
 foreach ($all_categories as $row) {
     $basket_id = $row['Basket_id'];
+    // $prevval = $row['Basket_Value'];
 }
 
 
-$sql = "UPDATE item SET basket_id='$basket_id' WHERE item_number = '$item_id'";
+$sql = "UPDATE item SET Basket_id='$basket_id' WHERE Item_number = '$item_id'";
+$result1 = mysqli_query($con, $sql);
+if (!$result1) {
+    die('Error: ' . mysqli_error($con));
+}
+
+$sql = "SELECT Price FROM item WHERE item_number = '$item_id'";
+$result1 = mysqli_query($con, $sql);
+if (!$result1) {
+    die('Error: ' . mysqli_error($con));
+}
+$all_categories = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+foreach ($all_categories as $row) {
+    $itemprice = $row['Price'];
+}
+
+
+
+$sql = "UPDATE Basket SET Basket_Value=Basket_Value + '$itemprice' WHERE User_id = '$owner_id'";
 
 if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
 }
+
 
 mysqli_close($con);
 header("Location: see_items.php");
