@@ -18,14 +18,25 @@ if (!$con) {
 
 // not done
 $sql = "UPDATE item 
-        SET Item_name='$iname', Due_date='$ddate', Item_desc='$description', Item_category='$icategory', Price='$price'  
+        SET Item_name=?, Due_date='$ddate', Item_desc=?, Item_category=?, Price=?  
         WHERE Item_number='$itemno'";
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
-} else {
-    echo "1 record added";
-}
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "ssii", $iname, $description, $icategory, $price);
+
+mysqli_stmt_execute($stmt);
+
+$res = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+
+// if (!mysqli_query($con, $sql)) {
+//     die('Error: ' . mysqli_error($con));
+// } else {
+//     echo "1 record added";
+// }
 
 // Close connection
 mysqli_close($con);
