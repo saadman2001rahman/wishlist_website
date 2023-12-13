@@ -9,11 +9,21 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "UPDATE Coupons SET Value='$coupon_val' WHERE Coupon_id = '$coupon_id'";
+$sql = "UPDATE Coupons SET Value=? WHERE Coupon_id = '$coupon_id'";
+$stmt = mysqli_prepare($con, $sql);
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
-}
+mysqli_stmt_bind_param($stmt, "i", $coupon_val);
+
+mysqli_stmt_execute($stmt);
+
+$res = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+
+// if (!mysqli_query($con, $sql)) {
+//     die('Error: ' . mysqli_error($con));
+// }
 
 mysqli_close($con);
 header("Location: view_websites.php");
