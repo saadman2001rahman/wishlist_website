@@ -19,25 +19,30 @@ $sql = "SELECT * FROM  master_user WHERE User_id=? AND User_password=?";
 $admin = "SELECT * FROM administrator WHERE User_id=?";
 
 $stmt = mysqli_prepare($con, $sql);
-$stmt_admin = mysqli_prepare($con, $admin);
 
 mysqli_stmt_bind_param($stmt, "ss", $user_id, $password);
-mysqli_stmt_bind_param($stmt_admin, "s", $user_id);
 
 mysqli_stmt_execute($stmt);
-mysqli_stmt_execute($stmt_admin);
 
 
 $result = mysqli_stmt_get_result($stmt);
-$r = mysqli_stmt_get_result($stmt_admin);
 
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
+mysqli_stmt_close($stmt);
+
+
+$stmt_admin = mysqli_prepare($con, $admin);
+mysqli_stmt_bind_param($stmt_admin, "s", $user_id);
+mysqli_stmt_execute($stmt_admin);
+$r = mysqli_stmt_get_result($stmt_admin);
+
 
 if (!$r) {
     die('Error: ' . mysqli_error($con));
 }
+mysqli_stmt_close($stmt_admin);
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if ($result->num_rows == 0) {
@@ -57,8 +62,6 @@ if ($result->num_rows == 0) {
 }
 
 
-mysqli_stmt_close($stmt);
-mysqli_stmt_close($stmt_admin);
 mysqli_close($con);
 header($headercode . urlencode($debugcode));
 exit();
