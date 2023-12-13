@@ -15,19 +15,34 @@ if (!$con) {
 }
 
 
-$sql = "SELECT * FROM  master_user WHERE User_id='$user_id' AND User_password='$password'";
-$admin = "SELECT * FROM administrator WHERE User_id='$user_id'";
+$sql = "SELECT * FROM  master_user WHERE User_id=? AND User_password=?";
+$admin = "SELECT * FROM administrator WHERE User_id=?";
+
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "ss", $user_id, $password);
+
+mysqli_stmt_execute($stmt);
 
 
-$result = mysqli_query($con, $sql);
-$r = mysqli_query($con, $admin);
+$result = mysqli_stmt_get_result($stmt);
+
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
+mysqli_stmt_close($stmt);
+
+
+$stmt_admin = mysqli_prepare($con, $admin);
+mysqli_stmt_bind_param($stmt_admin, "s", $user_id);
+mysqli_stmt_execute($stmt_admin);
+$r = mysqli_stmt_get_result($stmt_admin);
+
 
 if (!$r) {
     die('Error: ' . mysqli_error($con));
 }
+mysqli_stmt_close($stmt_admin);
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 if ($result->num_rows == 0) {
