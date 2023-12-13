@@ -30,11 +30,22 @@ while ($caninsert == 0) {
     }
 }
 
-$sql = "INSERT INTO item_category (Category_id , Category_name) VALUES ('$tryid', '$category_name')";
+$sql = "INSERT INTO item_category (Category_id , Category_name) VALUES (?, ?)";
+$stmt = mysqli_prepare($con, $sql);
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
-}
+mysqli_stmt_bind_param($stmt, "is", $tryid, $category_name);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+
+// if (!mysqli_query($con, $sql)) {
+//     die('Error: ' . mysqli_error($con));
+// }
 
 
 mysqli_close($con);
