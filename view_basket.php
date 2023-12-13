@@ -57,7 +57,7 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
     </div>
     <div>
         <?php
-        $sql = "SELECT Basket_Value FROM Basket WHERE User_id = '$owner_id'";
+        $sql = "SELECT Basket_id, Basket_Value FROM Basket WHERE User_id = '$owner_id'";
 
         $result = mysqli_query($con, $sql);
         if (!$result) {
@@ -67,7 +67,10 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
         $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
         foreach ($all_categories as $row) {
             echo "Total Of All Items In Basket:" . $row['Basket_Value'] . "";
+            $basket_id = $row["Basket_id"];
         }
+
+        echo "<br><br><br>";
 
         // $sql = "SELECT Website.Shipping_cost, Coupons.Value FROM item JOIN website on item.Website_domain = website.Website_domain JOIN Coupons on Coupons.Coupon_id = Website.Coupons JOIN Basket on Basket.Basket_id = item.Basket_id WHERE Basket.User_id = '$owner_id'";
         // $result = mysqli_query($con, $sql);
@@ -83,7 +86,23 @@ $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
         //     echo "Shipping cost :" . $row['Shipping_cost'] . "";
         // }
         
+        $sql = "SELECT DISTINCT Coupons.Coupon_id, Coupons.Value, Website.Website_domain, Website.Shipping_cost FROM Coupons JOIN Website on Coupons.Coupon_id = Website.Coupons JOIN item on item.website_domain = Website.Website_domain WHERE item.basket_id = '$basket_id'";
 
+        $result = mysqli_query($con, $sql);
+        if (!$result) {
+            die('Error: ' . mysqli_error($con));
+        }
+
+        $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($all_categories as $row) {
+            echo "Coupon Availabe from " . $row['Website_domain'] . ":" . $row['Value'] . "<br>";
+        }
+
+        echo "<br><br><br>";
+
+        foreach ($all_categories as $row) {
+            echo "Shipping Cost from " . $row['Website_domain'] . ":" . $row['Shipping_cost'] . "<br>";
+        }
 
 
         ?>
