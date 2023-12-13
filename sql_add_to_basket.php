@@ -71,7 +71,7 @@ $result = mysqli_stmt_get_result($stmt);
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
-$all_categories = mysqli_fetch_all($result1, MYSQLI_ASSOC);
+$all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 mysqli_stmt_close($stmt);
 
 foreach ($all_categories as $row) {
@@ -79,11 +79,10 @@ foreach ($all_categories as $row) {
 }
 
 
-
 $sql = "UPDATE Basket SET Basket_Value=Basket_Value + '$itemprice' WHERE User_id = ?";
 $stmt = mysqli_prepare($con, $sql);
 
-mysqli_stmt_bind_param($stmt, "i", $owner_id);
+mysqli_stmt_bind_param($stmt, "s", $owner_id);
 
 mysqli_stmt_execute($stmt);
 

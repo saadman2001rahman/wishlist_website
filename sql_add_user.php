@@ -32,12 +32,32 @@ if (!$form_filled) {
   die('Missing one or more values in form!');
 }
 
-$user = mysqli_query($con, " SELECT User_id FROM master_user WHERE User_id = '$uname'");
+$user = " SELECT User_id FROM master_user WHERE User_id = ?";
+$stmt = mysqli_prepare($con, $user);
+
+mysqli_stmt_bind_param($stmt, "s", $uname);
+
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
 
 //Checks to see if username is unique, and inserts into databse if true and closes sql connection if not
-if (mysqli_num_rows($user) == 0) {
+if ($result->num_rows == 0) {
   $sql = "INSERT INTO master_user (User_id,Email_address,Display_name,User_address,Phone_number,User_password) 
-              VALUES ('$uname','$email','$dname','$address','$phone','$pass')";
+              VALUES (?,?,?,?,?,?)";
+  $stmt = mysqli_prepare($con, $sql);
+
+  mysqli_stmt_bind_param($stmt, "ssssis", $uname, $email, $dname, $address, $phone, $pass);
+
+  mysqli_stmt_execute($stmt);
+
+  $result = mysqli_stmt_get_result($stmt);
+
+  mysqli_stmt_close($stmt);
+
 } else {
   mysqli_close($con);
   die('Username already taken, choose another one!');
