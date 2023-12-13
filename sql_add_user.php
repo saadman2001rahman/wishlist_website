@@ -96,9 +96,9 @@ while ($caninsert == 0) {
 
 
 //make new master user
-if (!mysqli_query($con, $sql)) {
-  die('Error: ' . mysqli_error($con));
-}
+// if (!mysqli_query($con, $sql)) {
+//   die('Error: ' . mysqli_error($con));
+// }
 
 //make new end user
 $sql2 = "INSERT INTO end_user (User_id, Name) 

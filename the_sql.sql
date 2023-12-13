@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2023 at 06:55 AM
+-- Generation Time: Dec 13, 2023 at 09:08 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -32,6 +32,13 @@ CREATE TABLE `administrator` (
   `Salary` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `administrator`
+--
+
+INSERT INTO `administrator` (`User_id`, `Salary`) VALUES
+('admin', 1000.00);
+
 -- --------------------------------------------------------
 
 --
@@ -43,6 +50,11 @@ CREATE TABLE `basket` (
   `User_id` varchar(20) NOT NULL,
   `Basket_value` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `basket`
+--
+
 
 -- --------------------------------------------------------
 
@@ -66,6 +78,11 @@ CREATE TABLE `coupons` (
   `Coupon_id` int(11) NOT NULL,
   `Value` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
 
 -- --------------------------------------------------------
 
@@ -92,6 +109,11 @@ CREATE TABLE `end_user` (
   `Name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `end_user`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -111,6 +133,10 @@ CREATE TABLE `item` (
   `Price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `item`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -121,6 +147,11 @@ CREATE TABLE `item_category` (
   `Category_id` int(11) NOT NULL,
   `Category_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `item_category`
+--
+
 
 -- --------------------------------------------------------
 
@@ -133,9 +164,16 @@ CREATE TABLE `master_user` (
   `Email_address` varchar(20) DEFAULT NULL,
   `Display_name` varchar(20) NOT NULL,
   `User_address` varchar(30) DEFAULT NULL,
-  `Phone_number` char(10) DEFAULT NULL,
+  `Phone_number` int(11) DEFAULT NULL,
   `User_password` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `master_user`
+--
+
+INSERT INTO `master_user` (`User_id`, `Email_address`, `Display_name`, `User_address`, `Phone_number`, `User_password`) VALUES
+('admin', 'skdlfhjkshg', 'admin', NULL, NULL, 'admin');
 
 -- --------------------------------------------------------
 
@@ -160,6 +198,11 @@ CREATE TABLE `recipient` (
   `Wishlist_id` int(11) NOT NULL,
   `Name` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `recipient`
+--
+
 
 -- --------------------------------------------------------
 
@@ -197,6 +240,9 @@ CREATE TABLE `website` (
   `Coupons` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `website`
+--
 -- --------------------------------------------------------
 
 --
@@ -208,6 +254,9 @@ CREATE TABLE `wishlist` (
   `Wishlist_name` varchar(20) NOT NULL,
   `Owner_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+--
 
 --
 -- Indexes for dumped tables
@@ -260,7 +309,7 @@ ALTER TABLE `end_user`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`Item_number`,`Wishlist_id`),
-  ADD KEY `Link` (`Link`),
+  ADD UNIQUE KEY `Link` (`Link`),
   ADD KEY `ITEMCATEGORYFK` (`Item_category`),
   ADD KEY `ITEMWEBSITEFK` (`Website_domain`),
   ADD KEY `ITEMWISHLISTFK` (`Wishlist_id`),
