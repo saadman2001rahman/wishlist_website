@@ -14,15 +14,17 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "UPDATE recipient SET Name='$rname' WHERE Wishlist_id='$wishlist_id'";
+$sql = "UPDATE recipient SET Name=? WHERE Wishlist_id=?";
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "si", $rname, $wishlist_id);
+
+mysqli_stmt_execute($stmt);
 
 
-if (!mysqli_query($con, $sql)) {
-    // Print the error for debugging
-    echo 'Error: ' . mysqli_error($con);
-    die();
-}
+$result = mysqli_stmt_get_result($stmt);
 
+mysqli_stmt_close($stmt);
 
 mysqli_close($con);
 header("Location: see_items.php");

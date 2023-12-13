@@ -17,14 +17,23 @@ if (!$con) {
 }
 
 
-$sql = "SELECT wishlist_name FROM wishlist WHERE wishlist_id= '$wishlist_id'";
+$sql = "SELECT wishlist_name FROM wishlist WHERE wishlist_id= ?";
 
-$result = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $wishlist_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
 
 
 
@@ -60,14 +69,22 @@ if ($result->num_rows > 0) {
 }
 
 
-$sql = "SELECT Name FROM recipient WHERE wishlist_id= '$wishlist_id'";
+$sql = "SELECT Name FROM recipient WHERE wishlist_id= ?";
 
-$result = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "i", $wishlist_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
 
 if ($result->num_rows > 0) {
     foreach ($all_categories as $row) {
@@ -111,21 +128,40 @@ echo "
 
 
 if (empty($_POST['iname']) and empty($_POST['choices'])) {
-    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id'";
+    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= ?";
+    $stmt = mysqli_prepare($con, $sql);
+
+    mysqli_stmt_bind_param($stmt, "i", $wishlist_id);
+
+    mysqli_stmt_execute($stmt);
+
+
+    $result = mysqli_stmt_get_result($stmt);
+
 } else {
-    $itemname = $_POST['iname'];
+    $itemname = "%" . $_POST['iname'] . "%";
     $order = $_POST['choices'];
-    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= '$wishlist_id' and Item_name LIKE '%$itemname%' ORDER BY $order";
+
+    $sql = "SELECT Item_number, Item_name, Price, Due_date FROM item WHERE wishlist_id= ? and Item_name LIKE ? ORDER BY $order";
+    $stmt = mysqli_prepare($con, $sql);
+
+    mysqli_stmt_bind_param($stmt, "is", $wishlist_id, $itemname);
+
+    mysqli_stmt_execute($stmt);
+
+
+    $result = mysqli_stmt_get_result($stmt);
+
 }
 
 
 
-$result = mysqli_query($con, $sql);
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+mysqli_stmt_close($stmt);
 
 if ($result->num_rows > 0) {
     echo "<table border='1'><tr><th>Name</th><th>Price</th><th>Due Date</th></tr>";

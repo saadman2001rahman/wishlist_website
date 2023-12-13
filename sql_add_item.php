@@ -32,7 +32,18 @@ if (!$con) {
 }
 
 while ($caninsert == 0) {
-    $result = mysqli_query($con, "SELECT Item_number FROM item WHERE Item_number = '$itemid'");
+    $sql = "SELECT Item_number FROM item WHERE Item_number = ?";
+    $stmt = mysqli_prepare($con, $sql);
+
+    mysqli_stmt_bind_param($stmt, "i", $itemid);
+
+    mysqli_stmt_execute($stmt);
+
+
+    $result = mysqli_stmt_get_result($stmt);
+
+    mysqli_stmt_close($stmt);
+
     if ($result !== false) {
         if (mysqli_num_rows($result) == 0) {
             $caninsert = 1;
@@ -50,14 +61,23 @@ while ($caninsert == 0) {
 $domain = parse_url($link)['host'];
 echo $domain . "<br>";
 
-$sql_check_domain = "SELECT * FROM website WHERE Website_domain='$domain'";
+$sql_check_domain = "SELECT * FROM website WHERE Website_domain=?";
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "s", $domain);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
 
 $_SESSION['add_item_id'] = $itemid;
 
 $_SESSION['add_wishlist_id'] = $wishlist_id;
 
 // Check if domain is in database
-$result = $con->query($sql_check_domain);
 if ($result->num_rows > 0) {
     echo "Domain exists.";
 } else {
@@ -83,9 +103,20 @@ if ($result->num_rows > 0) {
 
 // May need to change wishlist id; basket id
 $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
-        VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$domain', '$wishlist_id', NULL, '$price')";
+        VALUES (?, ?, '$ddate', ?, ?, ?, ?, ?, NULL, ?)";
 
-if (!mysqli_query($con, $sql)) {
+$stmt = mysqli_prepare($con, $sql);
+
+mysqli_stmt_bind_param($stmt, "isssisid", $itemid, $iname, $link, $description, $icat, $domain, $wishlist_id, $price);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+if (!$result) {
     die('Error: ' . mysqli_error($con));
 } else {
     echo "1 record added";

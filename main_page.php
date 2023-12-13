@@ -48,17 +48,33 @@
     }
 
     if (empty($_POST['wname'])) {
-        $sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id'";
-    } else {
-        $thename = $_POST['wname'];
-        $sql = "SELECT * FROM WISHLIST WHERE Owner_id='$owner_id' and Wishlist_name LIKE '%$thename%'";
-    }
+        $sql = "SELECT * FROM WISHLIST WHERE Owner_id=?";
+        $stmt = mysqli_prepare($con, $sql);
 
-    //make query and get result
-    $result = mysqli_query($con, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $owner_id);
+
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+    } else {
+        $thename = "%" . $_POST['wname'] . "%";
+        $sql = "SELECT * FROM WISHLIST WHERE Owner_id=? and Wishlist_name LIKE ?";
+        $stmt = mysqli_prepare($con, $sql);
+
+        mysqli_stmt_bind_param($stmt, "ss", $owner_id, $thename);
+
+        mysqli_stmt_execute($stmt);
+
+
+        $result = mysqli_stmt_get_result($stmt);
+
+    }
 
     //fetch as array
     $alwishlists = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_stmt_close($stmt);
+
 
     ?>
 

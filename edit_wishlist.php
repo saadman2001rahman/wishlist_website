@@ -11,11 +11,22 @@ if (!$con) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "UPDATE Wishlist SET wishlist_name='$wishlist_name' WHERE wishlist_id = '$wishlist_id'";
+$sql = "UPDATE Wishlist SET wishlist_name=? WHERE wishlist_id =?";
+$stmt = mysqli_prepare($con, $sql);
 
-if (!mysqli_query($con, $sql)) {
-    die('Error: ' . mysqli_error($con));
-}
+mysqli_stmt_bind_param($stmt, "si", $wishlist_name, $wishlist_id);
+
+mysqli_stmt_execute($stmt);
+
+
+$result = mysqli_stmt_get_result($stmt);
+
+mysqli_stmt_close($stmt);
+
+
+// if (!$result) {
+//     die('Error: ' . mysqli_error($con));
+// }
 
 mysqli_close($con);
 header("Location: see_items.php");

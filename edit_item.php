@@ -8,7 +8,19 @@ if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
 }
 
-$result = mysqli_query($con, "SELECT Item_name FROM item WHERE Item_number = '$itemid'");
+$sql = "SELECT Item_name FROM item WHERE Item_number =?";
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "i", $itemid);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+
+if (!$result) {
+    die('Error: ' . mysqli_error($con));
+}
+mysqli_stmt_close($stmt);
+
+
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 foreach ($all_categories as $row) {
     $item_name = $row["Item_name"];
