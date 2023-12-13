@@ -260,7 +260,7 @@ ALTER TABLE `end_user`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`Item_number`,`Wishlist_id`),
-  ADD UNIQUE KEY `Link` (`Link`),
+  ADD KEY `Link` (`Link`),
   ADD KEY `ITEMCATEGORYFK` (`Item_category`),
   ADD KEY `ITEMWEBSITEFK` (`Website_domain`),
   ADD KEY `ITEMWISHLISTFK` (`Wishlist_id`),
