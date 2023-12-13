@@ -8,12 +8,17 @@ if (!$con) {
     echo "Failed to connect: " . mysqli_connect_error();
 }
 
-$sql = "SELECT * FROM Item JOIN Basket ON Item.basket_id = Basket.Basket_id WHERE Basket.User_id = '$owner_id'";
+$sql = "SELECT * FROM Item JOIN Basket ON Item.basket_id = Basket.Basket_id WHERE Basket.User_id=?";
 
-$result = mysqli_query($con, $sql);
+$stmt = mysqli_prepare($con, $sql);
+mysqli_stmt_bind_param($stmt, "s", $owner_id);
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
 if (!$result) {
     die('Error: ' . mysqli_error($con));
 }
+mysqli_stmt_close($stmt);
 
 $all_categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
