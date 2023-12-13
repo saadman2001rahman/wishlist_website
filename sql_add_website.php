@@ -43,16 +43,9 @@ if (!mysqli_query($con, $sql)) {
     die('Error: ' . mysqli_error($con));
 }
 
-$check = "SELECT Website_domain FROM website WHERE Website_domain = ?";
-$stmt = mysqli_prepare($con, $check);
+$check = "SELECT Website_domain FROM website WHERE Website_domain = '$webdomain'";
 
-mysqli_stmt_bind_param($stmt, "s", $webdomain);
-
-mysqli_stmt_execute($stmt);
-
-$res = mysqli_stmt_get_result($stmt);
-
-mysqli_stmt_close($stmt);
+$res = mysqli_query($con, $check);
 
 if (!$res) {
     die('Error: ' . mysqli_error($con));
@@ -60,19 +53,9 @@ if (!$res) {
 
 
 
-$sql = "INSERT INTO website (Website_domain, Shipping_cost, Coupons) VALUES (?, ?, ?)";
-$stmt = mysqli_prepare($con, $sql);
+$sql = "INSERT INTO website (Website_domain, Shipping_cost, Coupons) VALUES ('$webdomain', '$shipcost', '$tryid')";
 
-mysqli_stmt_bind_param($stmt, "sii", $webdomain, $shipcost, $tryid);
-
-mysqli_stmt_execute($stmt);
-
-$res = mysqli_stmt_get_result($stmt);
-
-mysqli_stmt_close($stmt);
-
-
-if ($res->num_rows == 0) {
+if(mysqli_num_rows($res)== 0) {
     if (!mysqli_query($con, $sql)) {
         die('Error: ' . mysqli_error($con));
     }
@@ -95,21 +78,11 @@ if (isset($_GET["domain"])) {
     $sql = "INSERT INTO item (Item_number, Item_name, Due_date, Link, Item_desc, Item_category, Website_domain, Wishlist_id, Basket_id, Price)
         VALUES ($itemid, '$iname', '$ddate', '$link', '$description', '$icat', '$webdomain', '$wishlist_id', NULL, '$price')";
 
-    $stmt = mysqli_prepare($con, $sql);
-
-    mysqli_stmt_bind_param($stmt, "isssisii", $itemid, $iname, $link, $description, $icat, $webdomain, $wishlist_id, $price);
-
-    mysqli_stmt_execute($stmt);
-
-    $res = mysqli_stmt_get_result($stmt);
-
-    mysqli_stmt_close($stmt);
-
-    // if (!mysqli_query($con, $sql)) {
-    //     die('Error: ' . mysqli_error($con));
-    // } else {
-    //     echo "1 record added";
-    // }
+    if (!mysqli_query($con, $sql)) {
+        die('Error: ' . mysqli_error($con));
+    } else {
+        echo "1 record added";
+    }
     mysqli_close($con);
 
     header("Location: see_items.php");
